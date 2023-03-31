@@ -57,7 +57,7 @@ class _MyWidgetState extends State<MyWidget> {
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'login'),
         ],
         currentIndex: currentIndex,
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.blue,
         selectedItemColor: Colors.white,
         selectedFontSize: 17,
         
