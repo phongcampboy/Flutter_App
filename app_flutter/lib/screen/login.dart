@@ -1,5 +1,6 @@
-// ignore_for_file: prefer_const_constructors, override_on_non_overriding_member, avoid_print, unused_field, prefer_final_fields, unused_local_variable, unnecessary_null_comparison, use_build_context_synchronously, unnecessary_brace_in_string_interps
+// ignore_for_file: prefer_const_constructors, override_on_non_overriding_member, avoid_print, unused_field, prefer_final_fields, unused_local_variable, unnecessary_null_comparison, use_build_context_synchronously, unnecessary_brace_in_string_interps, sort_child_properties_last
 
+import 'package:app_flutter/screen/register.dart';
 import 'package:app_flutter/utils/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -112,7 +113,8 @@ class _LoginState extends State<Login> {
 
                         String username = nameController.text;
                         String password = passwordController.text;
-                        var result = await userProvider.authen(username, password);
+                        var result =
+                            await userProvider.authen(username, password);
                         // จำลองเปรียบเทียบค่า เพื่อทำการล็อกอิน
                         if (result['success'] != null) {
                           // ล็อกอินผ่าน
@@ -144,6 +146,31 @@ class _LoginState extends State<Login> {
                       }
                     },
                   )),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  children: <Widget>[
+                    const Text('Does not have account?'),
+                    TextButton(
+                      onPressed: () async {
+                        // เปิดหน้า สมัครสมาชิก โดย แทนที่ route ล็อกอินเดิม
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Register(),
+                            settings: RouteSettings(arguments: null),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        'Register',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ],
+                  mainAxisAlignment: MainAxisAlignment.center,
+                ),
+              )
             ],
           ),
         ),

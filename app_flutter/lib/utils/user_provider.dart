@@ -1,10 +1,7 @@
 // ignore_for_file: unused_import, unused_field, prefer_typing_uninitialized_variables, avoid_print, unused_local_variable
-
 import 'dart:convert';
-
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-
 import '../constants/api_parth.dart';
 
 class UserProvider {
