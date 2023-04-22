@@ -2,8 +2,8 @@
 
 class ApiUrl {
   // ค่าตัวแปรสำหรับใช้งานจริง
-   static const String localBaseURL = "https://10.0.2.2:443/demo/api";
+   static const String localBaseURL = "http://tmnoffice.dyndns.tv:8000/tmn/flutter";
    static const String baseURL = localBaseURL; // ทดสอบที่เครื่องใช้ค่านี้
-  static const String login = baseURL + "/user/authen";
+  static const String login = baseURL + "/tmn_login.php";
   static const String register = baseURL + "/user/create";
 }

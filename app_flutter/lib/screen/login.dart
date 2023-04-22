@@ -1,6 +1,8 @@
-// ignore_for_file: prefer_const_constructors, override_on_non_overriding_member, avoid_print, unused_field, prefer_final_fields
+// ignore_for_file: prefer_const_constructors, override_on_non_overriding_member, avoid_print, unused_field, prefer_final_fields, unused_local_variable, unnecessary_null_comparison, use_build_context_synchronously, unnecessary_brace_in_string_interps
 
+import 'package:app_flutter/utils/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -28,6 +30,8 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    // ใช้งาน provider
+    UserProvider userProvider = context.read<UserProvider>();
     return Scaffold(
       appBar: AppBar(
         title: (Text("Login")),
@@ -67,13 +71,26 @@ class _LoginState extends State<Login> {
               ),
               Container(
                 padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                child: TextField(
-                  obscureText: true,
-                  controller: passwordController,
-                  decoration: const InputDecoration(
+                child: TextFormField(
+                  decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Password',
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _isHidden =
+                              !_isHidden; // เมื่อกดก็เปลี่ยนค่าตรงกันข้าม
+                        });
+                      },
+                      icon: Icon(_isHidden // เงื่อนไขการสลับ icon
+                          ? Icons.visibility_off
+                          : Icons.visibility),
+                    ),
                   ),
+                  controller:
+                      passwordController, // ผูกกับ TextFormField ที่จะใช้
+                  obscureText:
+                      _isHidden, // ก่อนซ่อนหรือแสดงข้อความในรูปแบบรหัสผ่าน
                 ),
               ),
               SizedBox(
@@ -84,9 +101,47 @@ class _LoginState extends State<Login> {
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: ElevatedButton(
                     child: const Text('Login'),
-                    onPressed: () {
-                      print(nameController.text);
-                      print(passwordController.text);
+                    onPressed: () async {
+                      /* print(nameController.text);
+                      print(passwordController.text); */
+                      // อ้างอิงฟอร์มที่กำลังใช้งาน ตรวจสอบความถูกต้องข้อมูลในฟอร์ม
+                      if (_formKey.currentState!.validate()) {
+                        //หากผ่าน
+                        FocusScope.of(context)
+                            .unfocus(); // ยกเลิดโฟกัส ให้แป้นพิมพ์ซ่อนไป
+
+                        String username = nameController.text;
+                        String password = passwordController.text;
+                        var result = await userProvider.authen(username, password);
+                        // จำลองเปรียบเทียบค่า เพื่อทำการล็อกอิน
+                        if (result['success'] != null) {
+                          // ล็อกอินผ่าน
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Login Successful')),
+                          );
+                          // Navigator.pop(context, true); // ปิดหน้านี้พร้อมคืนค่า true
+                        } else {
+                          if (result['error'] != null) {
+                            print(result);
+                            // ล็อกอินไม่ผ่านมี error
+                            String error = result['error'];
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('${error}..  try agin!')),
+                            );
+                            setState(() {
+                              _authenticatingStatus = !_authenticatingStatus;
+                            });
+                          } else {
+                            // ล็อกอินไม่ผ่าน อื่นๆ
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Error..  try agin!')),
+                            );
+                            setState(() {
+                              _authenticatingStatus = !_authenticatingStatus;
+                            });
+                          }
+                        }
+                      }
                     },
                   )),
             ],

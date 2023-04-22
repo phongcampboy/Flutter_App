@@ -6,7 +6,9 @@ import 'package:app_flutter/screen/launcher.dart';
 import 'package:app_flutter/screen/login.dart';
 import 'package:app_flutter/screen/net.dart';
 import 'package:app_flutter/screen/register.dart';
+import 'package:app_flutter/utils/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,13 +20,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(     
-                title: 'First Flutter App',
-                debugShowCheckedModeBanner: false,
-                initialRoute: '/', // สามารถใช้ home แทนได้
-                routes: {
-                    Launcher.routeName: (context) => Launcher(),
-                },
+    return Provider(
+      create: (_) => UserProvider(),
+      child: MaterialApp(     
+                  title: 'First Flutter App',
+                  debugShowCheckedModeBanner: false,
+                  initialRoute: '/', // สามารถใช้ home แทนได้
+                  routes: {
+                      Launcher.routeName: (context) => Launcher(),
+                  },
+      ),
     );
   }
 }
