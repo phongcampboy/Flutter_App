@@ -121,7 +121,7 @@ class _LoginState extends State<Login> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Login Successful')),
                           );
-                          // Navigator.pop(context, true); // ปิดหน้านี้พร้อมคืนค่า true
+                           Navigator.pop(context, true); // ปิดหน้านี้พร้อมคืนค่า true
                         } else {
                           if (result['error'] != null) {
                             print(result);

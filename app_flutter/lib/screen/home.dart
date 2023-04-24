@@ -28,11 +28,18 @@ class _HomeState extends State<Home> {
     _loginSuccess =
         await userProvider.getLoginStatus(); // ถึงสถานะการล็อกอิน ถ้ามี
     if (_loginSuccess) {
-      // ถ้าล็อกอินอยู่
-
-      print(_loginSuccess);
-      // fetchUser(); // ดึงข้อมูลของผู้ใช้ ถ้าล็อกอินอยู่
+      fetchUser(); // ดึงข้อมูลของผู้ใช้ ถ้าล็อกอินอยู่
     }
+  }
+
+  // ฟังก์ชั่นสำหรับดึงข้อมูลผู้ใช้
+  void fetchUser() async {
+    // ใช้งาน provider
+    UserProvider userProvider = context.read<UserProvider>();
+    setState(() {
+      _loginSuccess = true;
+      print('Loginstatus{$_loginSuccess}');
+    });
   }
 
   @override
@@ -53,22 +60,28 @@ class _HomeState extends State<Home> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+                      Text('Profile Screen'),
                       Visibility(
-                        visible: _loginSuccess,
+                        // ส่วนที่แสดงกรณีล็อกอินแล้ว
+                        visible: _loginSuccess, // ใช้สถานะการล็อกอินกำหนดกรแสดง
                         child: Column(
                           children: [
                             FlutterLogo(
                               size: 100,
                             ),
-                            Text('Welcome'),
+                            Text('Welcome member'),
+                            //Text(_email), // แสดงอีเมล
                             ElevatedButton(
-                                onPressed: () async {
-                                  await userProvider.logout();
-                                  setState(() {
-                                    _loginSuccess = false;
-                                  });
-                                },
-                                child: Text('Log Out'))
+                              onPressed: () async {
+                                // เมื่อล็อกเอาท์
+                                // ทำการออกจากระบบ
+                                await userProvider.logout();
+                                setState(() {
+                                  _loginSuccess = false;
+                                });
+                              },
+                              child: Text('Logout'),
+                            ),
                           ],
                         ),
                       ),
@@ -83,6 +96,12 @@ class _HomeState extends State<Home> {
                                     builder: (context) => Login(),
                                     settings: RouteSettings(arguments: null),
                                   ));
+                
+                              // ถ้ามีการปิดหน้มที่เปิด และส่งค่ากลับมาเป็น true
+                              if (result == true) {
+                                // ทำคำสั่งดึงข้อมูลผู้ใช้ เมื่อล็อกอินผ่าน
+                                fetchUser();
+                              }
                             },
                             child: Text('Go to Login')),
                       ),
