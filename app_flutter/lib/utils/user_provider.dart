@@ -12,16 +12,17 @@ class UserProvider {
     final SharedPreferences prefs = await _prefs;
     return prefs.getBool('loginSuccess') ?? false;
   }
-
+  //  ฟังก์ชั่นล็อกเอาท์ออกจากระบบ ล้างค่าข้อมูล SharedPreferences
+  Future<bool> logout() async {
+    final SharedPreferences prefs = await _prefs;
+    return await prefs.clear();
+  } 
   // ฟังก์ชั่นสำหรับทำการล็อกอิน โดยส่งค่าไปยัง server
   Future<Map<String, dynamic>> authen(String username, String password) async {
     final SharedPreferences prefs = await _prefs;
     var result;
 
-    final Map<String, dynamic> loginData = {
-      'user': username,
-      'pass': password
-    };
+    final Map<String, dynamic> loginData = {'user': username, 'pass': password};
 
     // ทำการดึงข้อมูลจาก server ตาม url ที่กำหนด
     final response = await http.post(
@@ -37,8 +38,33 @@ class UserProvider {
       if (result['success'] != null) {
         // กรณีมีข้อมูลกลับบมา และล็อกอินผ่าน
         // บันทึกข้อมูลเบื้องต้นลงใน SharedPreferences
-        await prefs.setBool("loginSuccess", true); 
+        await prefs.setBool("loginSuccess", true);
       }
+    } else {
+      // กรณี error
+      throw Exception('Failed to load data');
+    }
+    return result;
+  }
+
+  // ฟังก์ชั่นสำหรับสร้างบัญชีใหม่ โดยส่งค่าไปยัง server แล้วบันทึกลงฐานข้อมูล
+  Future<Map<String, dynamic>> create(
+      String memberID, String username, String password) async {
+    var result;
+    // ทำการดึงข้อมูลจาก server ตาม url ที่กำหนด
+    final response =
+        await http.post(Uri.parse(ApiUrl.register), // ใช้ url จากค่าที่กำหนด
+            body: {
+          'MemberID': memberID,
+          'User_app': username,
+          'Pass_app': password,
+        });
+
+    // เมื่อมีข้อมูลกลับมา
+    if (response.statusCode == 200) {
+      var body = response.body;
+      print(body);
+      result = await json.decode(body);
     } else {
       // กรณี error
       throw Exception('Failed to load data');

@@ -1,6 +1,9 @@
-// ignore_for_file: prefer_const_constructors, unused_field, unused_local_variable, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, unused_field, unused_local_variable, prefer_const_literals_to_create_immutables, use_build_context_synchronously, unnecessary_brace_in_string_interps
 
+import 'package:app_flutter/utils/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 class Register extends StatefulWidget {
   const Register({super.key});
 
@@ -31,6 +34,8 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
+    // ใช้งาน provider
+    UserProvider userProvider = context.read<UserProvider>();
     return Scaffold(
       appBar: AppBar(
         title: (Text("register")),
@@ -113,38 +118,44 @@ class _RegisterState extends State<Register> {
                         String password = _password.text;
 
                         // ใช้ provider ส่ง request สร้างบัญชีสมาชิกใหม่
-                        /*       var result = await userProvider.create(email, password);
- 
-                                    if(result['success']!=null){ // สร้างบัญชีสำเร็จ
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(content: Text('Create new user Successful')),
-                                      );    
-                                      Navigator.pushReplacement( // ไปหน้าล็อกอิน
-                                          context, 
-                                          MaterialPageRoute(builder: (context) => Login(),
-                                            settings: RouteSettings(
-                                              arguments: null
-                                            ),
-                                          ),
-                                      );       
-                                    }else{
-                                      if(result['error']!=null){ // สร้างบัญชีไม่ผ่าน
-                                        String error = result['error'];
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                           SnackBar(content: Text('${error}..  try agin!')),
-                                        );
-                                        setState(() {
-                                          _registeringStatus = !_registeringStatus;
-                                        });                                           
-                                      }else{ // สร้างบัญชีไม่ผ่าน อื่นๆ 
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                           SnackBar(content: Text('Error..  try agin!')),
-                                        );
-                                        setState(() {
-                                          _registeringStatus = !_registeringStatus;
-                                        });                                                                                
-                                      }
-                                    } */
+                        var result = await userProvider.create(
+                            memberID, username, password);
+
+                        if (result['success'] != null) {
+                        
+                          // สร้างบัญชีสำเร็จ
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Create new user Successful')),
+                          );
+                          /*      Navigator.pushReplacement(
+                            // ไปหน้าล็อกอิน
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Login(),
+                              settings: RouteSettings(arguments: null),
+                            ),
+                          ); */
+                        } else {
+                          if (result['error'] != null) {
+                            // สร้างบัญชีไม่ผ่าน
+                            String error = result['error'];
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('${error}..  try agin!')),
+                            );
+                            setState(() {
+                              _registeringStatus = !_registeringStatus;
+                            });
+                          } else {
+                            // สร้างบัญชีไม่ผ่าน อื่นๆ
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Error..  try agin!')),
+                            );
+                            setState(() {
+                              _registeringStatus = !_registeringStatus;
+                            });
+                          }
+                        }
                       }
                     },
                     child: Container(
