@@ -1,5 +1,6 @@
 // ignore_for_file: sort_child_properties_last, prefer_const_constructors, avoid_unnecessary_containers, unnecessary_new
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Net extends StatefulWidget {
   const Net({super.key});
@@ -12,7 +13,7 @@ class _NetState extends State<Net> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("Internet")),
+        appBar: AppBar(title: const Text("TMN INTERNET")),
         body: ListView(
           children: <Widget>[
             Card(
@@ -27,46 +28,85 @@ class _NetState extends State<Net> {
                     margin: EdgeInsets.all(10),
                   ),
                   ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          'https://tmncabletv.com/app_flutter/Net/net-tmn.png'),
+                    title: Text('Fiber Optic อินเตอร์เน็ต ความเร็วสูง'),
+                    subtitle: Text(
+                      'บริการอินเตอร์เน็ตความเร็วสูง ด้วยการเชื่อมต่อผ่านสายสัญญาณไฟเบอร์ ออฟติก ที่รองรับเทคโนโลยีแห่งอนาคต ตอบสนองได้ทุกความต้องการ วันนี้เราพร้อมแล้ว สำหรับการให้บริการที่ครอบคลุมทั่วทุกพื้นที่ของพัทยา และพื้นที่ใกล้เคียง ติดตั้งรวดเร็ว ด้วยทีมช่างที่ชำนาญ เชิญสัมผัสกับบริการในระดับพรีเมี่ยมได้แล้ววันนี้. *ราคายังไม่รวมภาษีมูลค่าเพิ่ม (Vat 7%)*',
                     ),
-                    title: Text('Test'),
-                    subtitle: Text('xxxxxxxxxxxxxxx',
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,),
-                    
                   ),
                 ],
               ),
             ),
-             Card(
+            Card(
+              elevation: 1.0,
+              margin: EdgeInsets.all(10),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    child: InkWell(
+                        child: Image.network(
+                            'https://chawtaichonburi.com/appdata/img/net/S1.png',
+                            fit: BoxFit.cover),
+                        onTap: () {
+                          _launchURL();
+                        }),
+                    margin: EdgeInsets.all(10),
+                  ),
+                ],
+              ),
+            ),
+            Card(
               elevation: 1.0,
               margin: EdgeInsets.all(10),
               child: Column(
                 children: <Widget>[
                   Container(
                     child: Image.network(
-                        'https://tmncabletv.com/app_flutter/Net/net-tmn.png',
+                        'https://chawtaichonburi.com/appdata/img/net/S2.png',
                         fit: BoxFit.cover),
                     margin: EdgeInsets.all(10),
                   ),
-                  ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          'https://tmncabletv.com/app_flutter/Net/net-tmn.png'),
-                    ),
-                    title: Text('Test'),
-                    subtitle: Text('xxxxxxxxxxxxxxx',
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,),
-                    
+                ],
+              ),
+            ),
+            Card(
+              elevation: 1.0,
+              margin: EdgeInsets.all(10),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    child: Image.network(
+                        'https://chawtaichonburi.com/appdata/img/net/S3.png',
+                        fit: BoxFit.cover),
+                    margin: EdgeInsets.all(10),
+                  ),
+                ],
+              ),
+            ),
+            Card(
+              elevation: 1.0,
+              margin: EdgeInsets.all(10),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    child: Image.network(
+                        'https://chawtaichonburi.com/appdata/img/net/S4.png',
+                        fit: BoxFit.cover),
+                    margin: EdgeInsets.all(10),
                   ),
                 ],
               ),
             ),
           ],
-        )
-        );
+        ));
+  }
+
+  _launchURL() async {
+    const url = 'https://page.line.me/tmn.pattaya?openQrModal=true';
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

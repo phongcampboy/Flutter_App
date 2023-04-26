@@ -61,10 +61,12 @@ class _HelloConvexAppBarState extends State<HelloConvexAppBar> {
       body: pages[_selectedIndex],
       bottomNavigationBar: ConvexAppBar(
           style: TabStyle.reactCircle,
+          top: -30,
+          height: 50,
           items: [
-            TabItem(icon: Icons.home,title: 'Home'),
-            TabItem(icon: Icons.tv_rounded,title: 'Cable TV'),
-            TabItem(icon: Icons.network_cell_outlined,title: 'Internet'),
+            TabItem(icon: Icons.home, title: 'Home'),
+            TabItem(icon: Icons.tv_rounded, title: 'Cable TV'),
+            TabItem(icon: Icons.wifi, title: 'Internet'),
           ],
           initialActiveIndex: _selectedIndex,
           onTap: (int index) {
