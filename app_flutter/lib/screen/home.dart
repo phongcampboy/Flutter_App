@@ -1,5 +1,6 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_new, unused_field, unused_local_variable, avoid_print, unused_import
+// ignore_for_file: prefer_const_constructors, unnecessary_new, unused_field, unused_local_variable, avoid_print, unused_import, prefer_final_fields, prefer_const_literals_to_create_immutables
 
+import 'package:app_flutter/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../utils/user_provider.dart';
@@ -14,7 +15,11 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late bool _loginSuccess; // กำหดตัวแปรสถานะการล็อกอิน
-
+// ส่วนของตัวแปรข้อมูลพื้นฐาน
+  Usermodel? _user;
+  String _id = '';
+  String _firstname = '';
+  String _lastname = '';
   @override
   void initState() {
     super.initState();
@@ -40,6 +45,11 @@ class _HomeState extends State<Home> {
       _loginSuccess = true;
       print('Loginstatus{$_loginSuccess}');
     });
+    // ดึงข้อมูลทั่วไปของผู้ใช้
+    _user = await userProvider.getUser();
+    _id = _user!.memberId;
+    _firstname = _user!.firstName;
+    _lastname = _user!.lastName;
   }
 
   @override
@@ -47,71 +57,116 @@ class _HomeState extends State<Home> {
     // ใช้งาน provider
     UserProvider userProvider = context.read<UserProvider>();
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Home"),
-          elevation: 0,
-          backgroundColor: Colors.blue,
+      /*   appBar: AppBar(
+        title: Text("Home"),
+        elevation: 0,
+        backgroundColor: Colors.blue,
+      ), */
+      body: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(begin: Alignment.topCenter, colors: [
+            Color.fromARGB(255, 5, 131, 227),
+            Color.fromARGB(255, 76, 164, 227),
+            Color.fromARGB(255, 38, 134, 218)
+          ]),
         ),
-        body: FutureBuilder<bool>(
-            future: userProvider.getLoginStatus(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text('Profile Screen'),
-                      Visibility(
-                        // ส่วนที่แสดงกรณีล็อกอินแล้ว
-                        visible: _loginSuccess, // ใช้สถานะการล็อกอินกำหนดกรแสดง
-                        child: Column(
-                          children: [
-                            FlutterLogo(
-                              size: 100,
-                            ),
-                            Text('Welcome member'),
-                            //Text(_email), // แสดงอีเมล
-                            ElevatedButton(
-                              onPressed: () async {
-                                // เมื่อล็อกเอาท์
-                                // ทำการออกจากระบบ
-                                await userProvider.logout();
-                                setState(() {
-                                  _loginSuccess = false;
-                                });
-                              },
-                              child: Text('Logout'),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Visibility(
-                        visible: !_loginSuccess,
-                        child: ElevatedButton(
-                            onPressed: () async {
-                              // กำหดให้รอค่า หลังจากเปิดไปหน้า lgoin
-                              final result = await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Login(),
-                                    settings: RouteSettings(arguments: null),
-                                  ));
-                
-                              // ถ้ามีการปิดหน้มที่เปิด และส่งค่ากลับมาเป็น true
-                              if (result == true) {
-                                // ทำคำสั่งดึงข้อมูลผู้ใช้ เมื่อล็อกอินผ่าน
-                                fetchUser();
-                              }
-                            },
-                            child: Text('Go to Login')),
-                      ),
-                    ],
-                  ),
-                );
-              } else if (snapshot.hasError) {
-                return Text('${snapshot.error}');
-              }
-              return const CircularProgressIndicator();
-            }));
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: 80,
+            ),
+            Center(
+              child: Text(
+                "Member",
+                style: TextStyle(color: Colors.white, fontSize: 40),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Center(
+              child: Text(
+                "Welcome to Inside Android",
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(60),
+                      topRight: Radius.circular(60),
+                    )),
+                child: FutureBuilder<bool>(
+                    future: userProvider.getLoginStatus(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text('Profile Screen'),
+                              Visibility(
+                                // ส่วนที่แสดงกรณีล็อกอินแล้ว
+                                visible:
+                                    _loginSuccess, // ใช้สถานะการล็อกอินกำหนดกรแสดง
+                                child: Column(
+                                  children: [
+                                    FlutterLogo(
+                                      size: 100,
+                                    ),
+                                    Text('Welcome $_firstname $_lastname'),
+                                    //Text(_email), // แสดงอีเมล
+                                    ElevatedButton(
+                                      onPressed: () async {
+                                        // เมื่อล็อกเอาท์
+                                        // ทำการออกจากระบบ
+                                        await userProvider.logout();
+                                        setState(() {
+                                          _loginSuccess = false;
+                                        });
+                                      },
+                                      child: Text('Logout'),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Visibility(
+                                visible: !_loginSuccess,
+                                child: ElevatedButton(
+                                    onPressed: () async {
+                                      // กำหดให้รอค่า หลังจากเปิดไปหน้า lgoin
+                                      final result = await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => Login(),
+                                            settings:
+                                                RouteSettings(arguments: null),
+                                          ));
+
+                                      // ถ้ามีการปิดหน้มที่เปิด และส่งค่ากลับมาเป็น true
+                                      if (result == true) {
+                                        // ทำคำสั่งดึงข้อมูลผู้ใช้ เมื่อล็อกอินผ่าน
+                                        fetchUser();
+                                      }
+                                    },
+                                    child: Text('Go to Login')),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else if (snapshot.hasError) {
+                        return Text('${snapshot.error}');
+                      }
+                      return const CircularProgressIndicator();
+                    }),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

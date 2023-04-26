@@ -9,43 +9,43 @@ Usermodel usermodelFromJson(String str) => Usermodel.fromJson(json.decode(str));
 String usermodelToJson(Usermodel data) => json.encode(data.toJson());
 
 class Usermodel {
-    Usermodel({
-        required this.memberId,
-        required this.firstName,
-        required this.lastName,
-        required this.streetNo,
-        required this.moo,
-        required this.mooban,
-        required this.descriptionRate,
-        required this.tel1,
-        required this.memberStatusId,
-        required this.lastPay,
-        required this.nextPay,
-        required this.total,
-        required this.amount,
-        required this.isPay,
-        required this.billingCode,
-        required this.success,
-    });
+  Usermodel({
+    this.memberId = "",
+    this.firstName = "",
+    this.lastName = "",
+    this.streetNo = "",
+    this.moo = "",
+    this.mooban = "",
+    this.descriptionRate = "",
+    this.tel1 = "",
+    this.memberStatusId = "",
+    this.lastPay = "",
+    this.nextPay = "",
+    this.total = "",
+    this.amount = "",
+    this.isPay = "",
+    this.billingCode = "",
+    this.success = "",
+  });
 
-    String memberId = "";
-    String firstName = "";
-    String lastName = "";
-    String streetNo = "";
-    String moo = "";
-    String mooban = "";
-    String descriptionRate = "";
-    String tel1 = "";
-    String memberStatusId = "";
-    String lastPay = "";
-    String nextPay = "";
-    String total = "";
-    String amount = "";
-    String isPay = "";
-    String billingCode = "";
-    String success = "";
+  String memberId;
+  String firstName;
+  String lastName;
+  String streetNo;
+  String moo;
+  String mooban;
+  String descriptionRate;
+  String tel1;
+  String memberStatusId;
+  String lastPay;
+  String nextPay;
+  String total;
+  String amount;
+  String isPay;
+  String billingCode;
+  String success;
 
-    factory Usermodel.fromJson(Map<String, dynamic> json) => Usermodel(
+  factory Usermodel.fromJson(Map<String, dynamic> json) => Usermodel(
         memberId: json["MemberID"],
         firstName: json["FirstName"],
         lastName: json["LastName"],
@@ -62,9 +62,9 @@ class Usermodel {
         isPay: json["IsPay"],
         billingCode: json["BillingCode"],
         success: json["success"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "MemberID": memberId,
         "FirstName": firstName,
         "LastName": lastName,
@@ -81,5 +81,5 @@ class Usermodel {
         "IsPay": isPay,
         "BillingCode": billingCode,
         "success": success,
-    };
+      };
 }

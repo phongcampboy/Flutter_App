@@ -57,6 +57,12 @@ class _RegisterState extends State<Register> {
                 ),
                 Text('Register Screen'),
                 TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'กรุณากรอกข้อมูล!';
+                    }
+                    return null;
+                  },
                   decoration: InputDecoration(
                     hintText: 'MemberID',
                     icon: Icon(Icons.email_outlined),
@@ -67,8 +73,18 @@ class _RegisterState extends State<Register> {
                   height: 5.0,
                 ),
                 TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'กรุณากรอกข้อมูล!';
+                    } else if (value.length < 6) {
+                      return 'ชื่อผู้ใช้ควรมีอักขระอย่างน้อย 6 ตัวอักษร';
+                    } else if (value.length > 10) {
+                      return 'ชื่อผู้ใช้ควรมีอักขระไม่เกิน 15 ตัวอักษร';
+                    }
+                    return null;
+                  },
                   decoration: InputDecoration(
-                    hintText: 'Username',
+                    hintText: 'Username 6 ตัวอักษร',
                     icon: Icon(Icons.email_outlined),
                   ),
                   controller: _username, // ผูกกับ TextFormField ที่จะใช้
@@ -77,8 +93,18 @@ class _RegisterState extends State<Register> {
                   height: 5.0,
                 ),
                 TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'กรุณากรอกข้อมูล!';
+                    }else if (value.length < 6) {
+                      return 'พาสเวิร์ดควรมีอักขระอย่างน้อย 6 ตัวอักษร';
+                    } else if (value.length > 10) {
+                      return 'พาสเวิร์ดควรมีอักขระไม่เกิน 15 ตัวอักษร';
+                    }
+                    return null;
+                  },
                   decoration: InputDecoration(
-                    hintText: 'Password',
+                    hintText: 'Password 6 ตัวอักษร',
                     icon: Icon(Icons.vpn_key),
                     suffixIcon: IconButton(
                       onPressed: () {
@@ -103,12 +129,11 @@ class _RegisterState extends State<Register> {
                   visible: !_registeringStatus,
                   child: ElevatedButton(
                     onPressed: () async {
-                      // เปลี่ยนสถานะกำลังสมัครสมาชิก
-                      setState(() {
-                        _registeringStatus = !_registeringStatus;
-                      });
-
                       if (_formKey.currentState!.validate()) {
+                        // เปลี่ยนสถานะกำลังสมัครสมาชิก
+                        setState(() {
+                          _registeringStatus = !_registeringStatus;
+                        });
                         //หากผ่าน
                         FocusScope.of(context)
                             .unfocus(); // ยกเลิดโฟกัส ให้แป้นพิมพ์ซ่อนไป
@@ -122,7 +147,6 @@ class _RegisterState extends State<Register> {
                             memberID, username, password);
 
                         if (result['success'] != null) {
-                        
                           // สร้างบัญชีสำเร็จ
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(

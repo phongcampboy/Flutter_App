@@ -36,11 +36,11 @@ class _LauncherState extends State<Launcher> {
     ),
     const BottomNavigationBarItem(
       icon: Icon(FontAwesomeIcons.infoCircle),
-      label: 'About',
+      label: 'Cabletv',
     ),
     const BottomNavigationBarItem(
       icon: Icon(FontAwesomeIcons.userAlt),
-      label: 'Net',
+      label: 'Internet',
     ),
     const BottomNavigationBarItem(
       icon: Icon(FontAwesomeIcons.addressCard),

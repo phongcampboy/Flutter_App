@@ -62,17 +62,29 @@ class _LoginState extends State<Login> {
                   )),
               Container(
                 padding: const EdgeInsets.all(10),
-                child: TextField(
+                child: TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
                   controller: nameController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'User Name',
+                    labelText: 'Username',
                   ),
                 ),
               ),
               Container(
                 padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                 child: TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Password',
@@ -121,7 +133,8 @@ class _LoginState extends State<Login> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Login Successful')),
                           );
-                           Navigator.pop(context, true); // ปิดหน้านี้พร้อมคืนค่า true
+                          Navigator.pop(
+                              context, true); // ปิดหน้านี้พร้อมคืนค่า true
                         } else {
                           if (result['error'] != null) {
                             print(result);

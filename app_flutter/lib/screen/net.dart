@@ -66,6 +66,7 @@ class _NetState extends State<Net> {
               ),
             ),
           ],
-        ));
+        )
+        );
   }
 }
