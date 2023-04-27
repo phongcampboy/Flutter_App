@@ -2,24 +2,28 @@
 
 import 'package:app_flutter/routes/routes.dart';
 import 'package:app_flutter/screen/cabletv.dart';
+import 'package:app_flutter/screen/cctv.dart';
 import 'package:app_flutter/screen/home.dart';
 import 'package:app_flutter/screen/launcher.dart';
 import 'package:app_flutter/screen/login.dart';
 import 'package:app_flutter/screen/net.dart';
 import 'package:app_flutter/screen/register.dart';
+import 'package:app_flutter/screen/splash.dart';
 import 'package:app_flutter/utils/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/services.dart';
 
+/* void main() {
+  runApp(const MyApp());
+} */
 void main() {
-  /// Force the layout to Portrait mode
-  ///
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
-    runApp(const MyApp());
-  });
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+    .then((_) {
+      runApp(MyApp());
+    });
 }
 
 class MyApp extends StatefulWidget {
@@ -57,7 +61,7 @@ class HelloConvexAppBar extends StatefulWidget {
 }
 
 class _HelloConvexAppBarState extends State<HelloConvexAppBar> {
-  List pages = [Home(), Cabletv(), Net()];
+  List pages = [Home(), Cabletv(), Net(),Cctv()];
 
   int _selectedIndex = 0;
 
@@ -67,12 +71,14 @@ class _HelloConvexAppBarState extends State<HelloConvexAppBar> {
       body: pages[_selectedIndex],
       bottomNavigationBar: ConvexAppBar(
           style: TabStyle.reactCircle,
-          top: -30,
-          height: 40,
+          //curveSize: 20,
+          top: -23,
+          height: 48,
           items: [
-            TabItem(icon: Icons.home, title: 'Home'),
-            TabItem(icon: Icons.tv_rounded, title: 'Cable TV'),
-            TabItem(icon: Icons.wifi, title: 'Internet'),
+            TabItem(icon: Icons.home, title: 'HOME'),
+            TabItem(icon: Icons.tv_rounded, title: 'CABLE TV'),
+            TabItem(icon: Icons.wifi, title: 'INTERNET'),
+            TabItem(icon: Icons.tv_off, title: 'CCTV'),
           ],
           initialActiveIndex: _selectedIndex,
           onTap: (int index) {

@@ -57,7 +57,13 @@ class _HomeState extends State<Home> {
     // ใช้งาน provider
     UserProvider userProvider = context.read<UserProvider>();
     return Scaffold(
-      /*   appBar: AppBar(
+/*       appBar: AppBar(
+        actions: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            child: Icon(Icons.notifications),
+          )
+        ],
         title: Text("Home"),
         elevation: 0,
         backgroundColor: Colors.blue,

@@ -18,14 +18,14 @@ class _NetState extends State<Net> {
           children: <Widget>[
             Card(
               elevation: 1.0,
-              margin: EdgeInsets.all(10),
+              margin: EdgeInsets.all(5),
               child: Column(
                 children: <Widget>[
                   Container(
                     child: Image.network(
                         'https://tmncabletv.com/app_flutter/Net/net-tmn.png',
                         fit: BoxFit.cover),
-                    margin: EdgeInsets.all(10),
+                    margin: EdgeInsets.all(5),
                   ),
                   ListTile(
                     title: Text('Fiber Optic อินเตอร์เน็ต ความเร็วสูง'),
@@ -38,84 +38,56 @@ class _NetState extends State<Net> {
             ),
             Card(
               elevation: 1.0,
-              margin: EdgeInsets.all(10),
+              margin: EdgeInsets.all(5),
               child: Column(
                 children: <Widget>[
                   Container(
-                    child: ElevatedButton(
-                        child: Image.network(
-                            'https://chawtaichonburi.com/appdata/img/net/S1.png',
-                            fit: BoxFit.cover),
-                        onPressed: () {
-                          launchUrlStart(
-                              url:
-                                  "https://page.line.me/tmn.pattaya?openQrModal=true");
-                          // _launchURL();
-                        }),
-                    margin: EdgeInsets.all(10),
+                    child: Image.network(
+                        'https://chawtaichonburi.com/appdata/img/net/P1.png',
+                        fit: BoxFit.cover),
+                    margin: EdgeInsets.all(5),
                   ),
                 ],
               ),
             ),
             Card(
               elevation: 1.0,
-              margin: EdgeInsets.all(10),
+              margin: EdgeInsets.all(5),
               child: Column(
                 children: <Widget>[
                   Container(
-                    child: ElevatedButton(
-                        child: Image.network(
-                            'https://chawtaichonburi.com/appdata/img/net/S2.png',
-                            fit: BoxFit.cover),
-                        onPressed: () {
-                          launchUrlStart(
-                              url:
-                                  "https://page.line.me/tmn.pattaya?openQrModal=true");
-                          // _launchURL();
-                        }),
-                    margin: EdgeInsets.all(10),
+                    child: Image.network(
+                        'https://chawtaichonburi.com/appdata/img/net/P2.png',
+                        fit: BoxFit.cover),
+                    margin: EdgeInsets.all(5),
                   ),
                 ],
               ),
             ),
             Card(
               elevation: 1.0,
-              margin: EdgeInsets.all(10),
+              margin: EdgeInsets.all(5),
               child: Column(
                 children: <Widget>[
                   Container(
-                    child: ElevatedButton(
-                        child: Image.network(
-                            'https://chawtaichonburi.com/appdata/img/net/S3.png',
-                            fit: BoxFit.cover),
-                        onPressed: () {
-                          launchUrlStart(
-                              url:
-                                  "https://page.line.me/tmn.pattaya?openQrModal=true");
-                          // _launchURL();
-                        }),
-                    margin: EdgeInsets.all(10),
+                    child: Image.network(
+                        'https://chawtaichonburi.com/appdata/img/net/P3.png',
+                        fit: BoxFit.cover),
+                    margin: EdgeInsets.all(5),
                   ),
                 ],
               ),
             ),
             Card(
               elevation: 1.0,
-              margin: EdgeInsets.all(10),
+              margin: EdgeInsets.only(bottom: 10),
               child: Column(
                 children: <Widget>[
                   Container(
-                    child: ElevatedButton(
-                        child: Image.network(
-                            'https://chawtaichonburi.com/appdata/img/net/S4.png',
-                            fit: BoxFit.cover),
-                        onPressed: () {
-                          launchUrlStart(
-                              url:
-                                  "https://page.line.me/tmn.pattaya?openQrModal=true");
-                          // _launchURL();
-                        }),
-                    margin: EdgeInsets.all(10),
+                    child: Image.network(
+                        'https://chawtaichonburi.com/appdata/img/net/S4.png',
+                        fit: BoxFit.cover),
+                    margin: EdgeInsets.all(5),
                   ),
                 ],
               ),
