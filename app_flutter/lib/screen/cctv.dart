@@ -1,4 +1,4 @@
-// ignore_for_file: sort_child_properties_last
+// ignore_for_file: sort_child_properties_last, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 
@@ -73,6 +73,7 @@ class _CctvState extends State<Cctv> {
                 ],
               ),
             ),
+            SizedBox(height: 10,)
           ],
         ));
   }

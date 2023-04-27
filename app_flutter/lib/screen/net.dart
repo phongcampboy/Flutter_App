@@ -92,6 +92,7 @@ class _NetState extends State<Net> {
                 ],
               ),
             ),
+             SizedBox(height: 10,)
           ],
         ));
   }
