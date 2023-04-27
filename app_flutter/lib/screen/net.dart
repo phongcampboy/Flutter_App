@@ -42,12 +42,15 @@ class _NetState extends State<Net> {
               child: Column(
                 children: <Widget>[
                   Container(
-                    child: InkWell(
+                    child: ElevatedButton(
                         child: Image.network(
                             'https://chawtaichonburi.com/appdata/img/net/S1.png',
                             fit: BoxFit.cover),
-                        onTap: () {
-                          _launchURL();
+                        onPressed: () {
+                          launchUrlStart(
+                              url:
+                                  "https://page.line.me/tmn.pattaya?openQrModal=true");
+                          // _launchURL();
                         }),
                     margin: EdgeInsets.all(10),
                   ),
@@ -60,9 +63,16 @@ class _NetState extends State<Net> {
               child: Column(
                 children: <Widget>[
                   Container(
-                    child: Image.network(
-                        'https://chawtaichonburi.com/appdata/img/net/S2.png',
-                        fit: BoxFit.cover),
+                    child: ElevatedButton(
+                        child: Image.network(
+                            'https://chawtaichonburi.com/appdata/img/net/S2.png',
+                            fit: BoxFit.cover),
+                        onPressed: () {
+                          launchUrlStart(
+                              url:
+                                  "https://page.line.me/tmn.pattaya?openQrModal=true");
+                          // _launchURL();
+                        }),
                     margin: EdgeInsets.all(10),
                   ),
                 ],
@@ -74,9 +84,16 @@ class _NetState extends State<Net> {
               child: Column(
                 children: <Widget>[
                   Container(
-                    child: Image.network(
-                        'https://chawtaichonburi.com/appdata/img/net/S3.png',
-                        fit: BoxFit.cover),
+                    child: ElevatedButton(
+                        child: Image.network(
+                            'https://chawtaichonburi.com/appdata/img/net/S3.png',
+                            fit: BoxFit.cover),
+                        onPressed: () {
+                          launchUrlStart(
+                              url:
+                                  "https://page.line.me/tmn.pattaya?openQrModal=true");
+                          // _launchURL();
+                        }),
                     margin: EdgeInsets.all(10),
                   ),
                 ],
@@ -88,9 +105,16 @@ class _NetState extends State<Net> {
               child: Column(
                 children: <Widget>[
                   Container(
-                    child: Image.network(
-                        'https://chawtaichonburi.com/appdata/img/net/S4.png',
-                        fit: BoxFit.cover),
+                    child: ElevatedButton(
+                        child: Image.network(
+                            'https://chawtaichonburi.com/appdata/img/net/S4.png',
+                            fit: BoxFit.cover),
+                        onPressed: () {
+                          launchUrlStart(
+                              url:
+                                  "https://page.line.me/tmn.pattaya?openQrModal=true");
+                          // _launchURL();
+                        }),
                     margin: EdgeInsets.all(10),
                   ),
                 ],
@@ -100,12 +124,8 @@ class _NetState extends State<Net> {
         ));
   }
 
-  _launchURL() async {
-    const url = 'https://page.line.me/tmn.pattaya?openQrModal=true';
-    final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    } else {
+  Future<void> launchUrlStart({required String url}) async {
+    if (!await launchUrl(Uri.parse(url))) {
       throw 'Could not launch $url';
     }
   }

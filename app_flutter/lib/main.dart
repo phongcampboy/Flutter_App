@@ -11,9 +11,15 @@ import 'package:app_flutter/utils/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:flutter/services.dart';
 
 void main() {
-  runApp(const MyApp());
+  /// Force the layout to Portrait mode
+  ///
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
+    runApp(const MyApp());
+  });
 }
 
 class MyApp extends StatefulWidget {
@@ -62,7 +68,7 @@ class _HelloConvexAppBarState extends State<HelloConvexAppBar> {
       bottomNavigationBar: ConvexAppBar(
           style: TabStyle.reactCircle,
           top: -30,
-          height: 50,
+          height: 40,
           items: [
             TabItem(icon: Icons.home, title: 'Home'),
             TabItem(icon: Icons.tv_rounded, title: 'Cable TV'),
