@@ -1,0 +1,83 @@
+// ignore_for_file: avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, prefer_const_constructors
+
+import 'package:flutter/material.dart';
+
+class Member extends StatefulWidget {
+  const Member({super.key});
+
+  @override
+  State<Member> createState() => _MemberState();
+}
+
+class _MemberState extends State<Member> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('MEMBER'),
+      ),
+      body: Container(
+        margin: const EdgeInsets.all(20.0),
+        height: 150.0,
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(
+            Radius.circular(10),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Color(0xffDDDDDD),
+              blurRadius: 6.0,
+              spreadRadius: 2.0,
+              offset: Offset(0.0, 0.0),
+            )
+          ],
+        ),
+        child: Column(
+          children: <Widget>[
+            Container(
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text("รหัสสมาชิก : ",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(
+                          "ทดสอบ ยอดจำปา",
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text("ชื่อ-สกุล : ",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(
+                          "ทดสอบ ยอดจำปา",
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text("ที่อยู่ : ",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(
+                          "ทดสอบ ยอดจำปา",
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        
+        
+      ),
+      
+    );
+  }
+}

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_new, unused_field, unused_local_variable, avoid_print, unused_import, prefer_final_fields, prefer_const_literals_to_create_immutables
 
 import 'package:app_flutter/models/user_model.dart';
+import 'package:app_flutter/screen/member.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../utils/user_provider.dart';
@@ -135,6 +136,20 @@ class _HomeState extends State<Home> {
                                         });
                                       },
                                       child: Text('Logout'),
+                                    ),
+                                    //Text(_email), // แสดงอีเมล
+                                    ElevatedButton(
+                                      onPressed: () async {
+                                        Navigator.push(
+                                            // ไปหน้าล็อกอิน
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => Member(),
+                                              settings: RouteSettings(
+                                                  arguments: null),
+                                            ));
+                                      },
+                                      child: Text('GO TO MEMBER'),
                                     ),
                                   ],
                                 ),
