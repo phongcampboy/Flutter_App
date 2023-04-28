@@ -1,8 +1,10 @@
-// ignore_for_file: prefer_const_constructors, unused_field, unused_local_variable, prefer_const_literals_to_create_immutables, use_build_context_synchronously, unnecessary_brace_in_string_interps
+// ignore_for_file: prefer_const_constructors, unused_field, unused_local_variable, prefer_const_literals_to_create_immutables, use_build_context_synchronously, unnecessary_brace_in_string_interps, unnecessary_new, unnecessary_null_comparison
 
 import 'package:app_flutter/utils/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:email_validator/email_validator.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -60,12 +62,15 @@ class _RegisterState extends State<Register> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'กรุณากรอกข้อมูล!';
+                    } else if (!RegExp(r'^[A-Za-z0-9]+$').hasMatch(value)) {
+                      return "ไม่อนุญาตภาษาไทย!";
                     }
+
                     return null;
                   },
                   decoration: InputDecoration(
                     hintText: 'MemberID',
-                    icon: Icon(Icons.email_outlined),
+                    icon: const FaIcon(FontAwesomeIcons.userGear),
                   ),
                   controller: _memberID, // ผูกกับ TextFormField ที่จะใช้
                 ),
@@ -73,19 +78,13 @@ class _RegisterState extends State<Register> {
                   height: 5.0,
                 ),
                 TextFormField(
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'กรุณากรอกข้อมูล!';
-                    } else if (value.length < 6) {
-                      return 'ชื่อผู้ใช้ควรมีอักขระอย่างน้อย 6 ตัวอักษร';
-                    } else if (value.length > 10) {
-                      return 'ชื่อผู้ใช้ควรมีอักขระไม่เกิน 15 ตัวอักษร';
-                    }
-                    return null;
-                  },
+                  validator: (value) => EmailValidator.validate(value!)
+                      ? null
+                      : "กรุณากรอกอีเมล์ให้ถูกต้อง!",
+
                   decoration: InputDecoration(
-                    hintText: 'Username 6 ตัวอักษร',
-                    icon: Icon(Icons.email_outlined),
+                    hintText: 'Email',
+                    icon: const FaIcon(FontAwesomeIcons.envelope),
                   ),
                   controller: _username, // ผูกกับ TextFormField ที่จะใช้
                 ),
@@ -96,10 +95,12 @@ class _RegisterState extends State<Register> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'กรุณากรอกข้อมูล!';
-                    }else if (value.length < 6) {
+                    } else if (value.length < 6) {
                       return 'พาสเวิร์ดควรมีอักขระอย่างน้อย 6 ตัวอักษร';
                     } else if (value.length > 10) {
                       return 'พาสเวิร์ดควรมีอักขระไม่เกิน 15 ตัวอักษร';
+                    } else if (!RegExp(r'^[A-Za-z0-9]+$').hasMatch(value)) {
+                      return "ไม่อนุญาตภาษาไทย!";
                     }
                     return null;
                   },

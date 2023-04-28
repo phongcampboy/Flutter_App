@@ -45,12 +45,8 @@ class _LoginState extends State<Login> {
               Container(
                 alignment: Alignment.center,
                 padding: EdgeInsets.all(10),
-                child: Text(
-                  'Hispeed',
-                  style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 30),
+                child: FlutterLogo(
+                  size: 100,
                 ),
               ),
               Container(
@@ -177,7 +173,7 @@ class _LoginState extends State<Login> {
                       },
                       child: const Text(
                         'Register',
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 16),
                       ),
                     ),
                   ],

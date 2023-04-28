@@ -1,6 +1,8 @@
 // ignore_for_file: sort_child_properties_last, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Cctv extends StatefulWidget {
   const Cctv({super.key});
@@ -73,8 +75,38 @@ class _CctvState extends State<Cctv> {
                 ],
               ),
             ),
-            SizedBox(height: 10,)
+            SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: FloatingActionButton.extended(
+                onPressed: () {
+                  launchUrlStart(
+                      url: 'https://page.line.me/tmn.pattaya?openQrModal=true');
+                },
+                label: Text(
+                  'สมัครบริการ',
+                  style: GoogleFonts.kanit(
+                      fontStyle: FontStyle.normal, fontSize: 20),
+                ),
+                backgroundColor: Colors.blue,
+                icon: Icon(
+                  Icons.download,
+                  size: 30,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
           ],
         ));
+  }
+
+  Future<void> launchUrlStart({required String url}) async {
+    if (!await launchUrl(Uri.parse(url))) {
+      throw 'Could not launch $url';
+    }
   }
 }
