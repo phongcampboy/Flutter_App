@@ -74,7 +74,7 @@ class _MemberState extends State<Member> {
             BoxShadow(
               color: Color(0xffDDDDDD),
               blurRadius: 6.0,
-              spreadRadius: 2.0,
+              spreadRadius: 1.0,
               offset: Offset(0.0, 0.0),
             )
           ],
