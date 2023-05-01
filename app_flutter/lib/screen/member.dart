@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, prefer_const_constructors, unused_field, avoid_print
 
+import 'package:app_flutter/screen/add_member.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -61,62 +62,107 @@ class _MemberState extends State<Member> {
       appBar: AppBar(
         title: const Text('MEMBER'),
       ),
-      body: Container(
-        margin: const EdgeInsets.all(20.0),
-        height: 150.0,
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(
-            Radius.circular(10),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Color(0xffDDDDDD),
-              blurRadius: 6.0,
-              spreadRadius: 1.0,
-              offset: Offset(0.0, 0.0),
-            )
-          ],
-        ),
+      body: SingleChildScrollView(
         child: Column(
-          children: <Widget>[
+          children: [
             Container(
-              child: Padding(
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Text("รหัสสมาชิก  : ",
-                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18)),
-                        Text(
-                          "   $_id",
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text("ชื่อ-สกุล  : ",
-                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18)),
-                        Text(
-                          "   $_firstname $_lastname",
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text("ที่อยู่  : ",
-                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18)),
-                        Text(
-                          "   ทดสอบ ยอดจำปา",
-                        ),
-                      ],
-                    ),
-                  ],
+              margin: const EdgeInsets.all(20.0),
+              height: 150.0,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xffDDDDDD),
+                    blurRadius: 6.0,
+                    spreadRadius: 1.0,
+                    offset: Offset(0.0, 0.0),
+                  )
+                ],
+              ),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text("รหัสสมาชิก  : ",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18)),
+                              Text(
+                                "   $_id",
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text("ชื่อ-สกุล  : ",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18)),
+                              Text(
+                                "   $_firstname $_lastname",
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text("ที่อยู่  : ",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18)),
+                              Text(
+                                "   ทดสอบ ยอดจำปา",
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              TextButton(
+                                child: const Text('จ่ายบิล'),
+                                onPressed: () {/* ... */},
+                              ),
+                              const SizedBox(width: 8),
+                              TextButton(
+                                child: const Text('ประวัติการชำระ'),
+                                onPressed: () {/* ... */},
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
+            Container(
+              child: ElevatedButton(
+                  onPressed: () async {
+                    // กำหดให้รอค่า หลังจากเปิดไปหน้า lgoin
+                    final result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AddMember(),
+                          settings: RouteSettings(arguments: null),
+                        ));
+
+                    // ถ้ามีการปิดหน้มที่เปิด และส่งค่ากลับมาเป็น true
+                    if (result == true) {
+                      // ทำคำสั่งดึงข้อมูลผู้ใช้ เมื่อล็อกอินผ่าน
+                      fetchUser();
+                    }
+                  },
+                  child: Text('Go Add Member')),
+            )
           ],
         ),
       ),

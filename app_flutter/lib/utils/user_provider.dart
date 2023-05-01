@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, unused_field, prefer_typing_uninitialized_variables, avoid_print, unused_local_variable
+// ignore_for_file: unused_import, unused_field, prefer_typing_uninitialized_variables, avoid_print, unused_local_variable, non_constant_identifier_names
 import 'dart:convert';
 import 'package:app_flutter/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,7 +21,6 @@ class UserProvider {
       memberId: prefs.getString('user_id')!,
       firstName: prefs.getString('firstName')!,
       lastName: prefs.getString('lastName')!,
-     
     );
   }
 
@@ -56,6 +55,37 @@ class UserProvider {
         await prefs.setString("firstName", (result['FirstName']));
         await prefs.setString("lastName", (result['LastName']));
         await prefs.setBool("loginSuccess", true);
+      }
+    } else {
+      // กรณี error
+      throw Exception('Failed to load data');
+    }
+    return result;
+  }
+
+  Future<Map<String, dynamic>> addmemberPlus(
+      String idAdd, String MemID) async {
+    final SharedPreferences prefs = await _prefs;
+    var result;
+
+    final Map<String, dynamic> loginData = {
+      'memberID': MemID,
+      'id_save': idAdd
+    };
+
+    // ทำการดึงข้อมูลจาก server ตาม url ที่กำหนด
+    final response = await http.post(
+      Uri.parse(ApiUrl.addmemberplus),
+      body: json.encode(loginData),
+      headers: {'Content-Type': 'application/json'},
+    );
+
+    // เมื่อมีข้อมูลกลับมา
+    if (response.statusCode == 200) {
+      var body = response.body;
+      result = await json.decode(body);
+      if (result['success'] != null) {
+        print(result);
       }
     } else {
       // กรณี error
