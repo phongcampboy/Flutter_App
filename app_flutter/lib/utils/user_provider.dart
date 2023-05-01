@@ -63,9 +63,7 @@ class UserProvider {
     return result;
   }
 
-  Future<Map<String, dynamic>> addmemberPlus(
-      String idAdd, String MemID) async {
-    final SharedPreferences prefs = await _prefs;
+  Future<Map<String, dynamic>> addmemberPlus(String idAdd, String MemID) async {
     var result;
 
     final Map<String, dynamic> loginData = {
