@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, no_leading_underscores_for_local_identifiers, prefer_const_constructors, avoid_unnecessary_containers, dead_code, prefer_const_literals_to_create_immutables
+// ignore_for_file: avoid_print, no_leading_underscores_for_local_identifiers, prefer_const_constructors, avoid_unnecessary_containers, dead_code, prefer_const_literals_to_create_immutables, unnecessary_new
 
 import 'dart:convert';
 
@@ -18,8 +18,7 @@ class LoadMember extends StatefulWidget {
 }
 
 class _LoadMemberState extends State<LoadMember> {
-  late bool _loginSuccess;
-  late bool _data = false; // กำหดตัวแปรสถานะการล็อกอิน
+  late bool _loginSuccess; // กำหดตัวแปรสถานะการล็อกอิน
   Usermodel? _user;
   String _id = '';
   @override
@@ -98,71 +97,85 @@ class _LoadMemberState extends State<LoadMember> {
           child: FutureBuilder<dynamic>(
               future: loadmemberPlus(_id),
               builder: (context, snashot) {
-                if (snashot.hasData) {
-                  return ListView.builder(
-                      //สร้าง Widget ListView
-                      shrinkWrap: true,
-                      padding: const EdgeInsets.all(16.0),
-                      itemCount: snashot.data.length,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          margin: const EdgeInsets.all(20.0),
-                          height: 150.0,
-                          width: double.infinity,
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0xffDDDDDD),
-                                blurRadius: 6.0,
-                                spreadRadius: 1.0,
-                                offset: Offset(0.0, 0.0),
+                if (snashot.connectionState == ConnectionState.done) {
+                  if (snashot.data.length > 0) {
+                    return ListView.builder(
+                        //สร้าง Widget ListView
+                        shrinkWrap: true,
+                        padding: const EdgeInsets.all(16.0),
+                        itemCount: snashot.data.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            margin: const EdgeInsets.all(20.0),
+                            height: 150.0,
+                            width: double.infinity,
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
                               ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(12),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Text("รหัสสมาชิก  : ",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18)),
-                                    Text(snashot.data![index].memberId),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: <Widget>[
-                                    TextButton(
-                                      child: const Text('จ่ายบิล'),
-                                      onPressed: () {/* ... */},
-                                    ),
-                                    const SizedBox(width: 8),
-                                    TextButton(
-                                      child: const Text('ประวัติการชำระ'),
-                                      onPressed: () {/* ... */},
-                                    ),
-                                  ],
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0xffDDDDDD),
+                                  blurRadius: 6.0,
+                                  spreadRadius: 1.0,
+                                  offset: Offset(0.0, 0.0),
                                 ),
                               ],
                             ),
-                          ),
-                        );
-                      });
+                            child: Padding(
+                              padding: const EdgeInsets.all(12),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text("รหัสสมาชิก  : ",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18)),
+                                      Text(snashot.data![index].memberId),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      TextButton(
+                                        child: const Text('จ่ายบิล'),
+                                        onPressed: () {/* ... */},
+                                      ),
+                                      const SizedBox(width: 8),
+                                      TextButton(
+                                        child: const Text('ประวัติการชำระ'),
+                                        onPressed: () {/* ... */},
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        });
+                  } else {// ถ้าดาต้าไม่มีค่า
+                    return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 100),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            Center(
+                              child: new CircularProgressIndicator(),
+                            ),
+                            SizedBox(
+                              height: 50,
+                            ),
+                            Text('No DATA',style: TextStyle(fontSize: 20),)
+                          ],
+                        ));
+                  }
+                  // รูป Spiner ขณะรอโหลดข้อมูล
                 } else if (snashot.hasError) {
                   return Text("${snashot.error}");
-                } else if (!snashot.hasData || snashot.data.documents.isEmpty) {
-                  if (_data) {
-                    return Text('No DATA');
-                  }
                 }
-                // รูป Spiner ขณะรอโหลดข้อมูล
                 return LinearProgressIndicator();
               }),
         ),
