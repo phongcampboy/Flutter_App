@@ -1,83 +1,131 @@
-// ignore_for_file: avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, prefer_const_constructors
-
-import 'package:flutter/material.dart';
-
-class Member extends StatefulWidget {
-  const Member({super.key});
-
-  @override
-  State<Member> createState() => _MemberState();
-}
-
-class _MemberState extends State<Member> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('MEMBER'),
-      ),
-      body: Container(
-        margin: const EdgeInsets.all(20.0),
-        height: 150.0,
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(
-            Radius.circular(10),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Color(0xffDDDDDD),
-              blurRadius: 6.0,
-              spreadRadius: 2.0,
-              offset: Offset(0.0, 0.0),
-            )
-          ],
-        ),
-        child: Column(
-          children: <Widget>[
+ child: Column(
+          children: [
             Container(
-              child: Padding(
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Text("รหัสสมาชิก : ",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        Text(
-                          "ทดสอบ ยอดจำปา",
-                        ),
-                      ],
+              margin: const EdgeInsets.all(20.0),
+              height: 150.0,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xffDDDDDD),
+                    blurRadius: 6.0,
+                    spreadRadius: 1.0,
+                    offset: Offset(0.0, 0.0),
+                  )
+                ],
+              ),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text("รหัสสมาชิก  : ",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18)),
+                              Text(
+                                "   $_id",
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text("ชื่อ-สกุล  : ",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18)),
+                              Text(
+                                "   $_firstname $_lastname",
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text("ที่อยู่  : ",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18)),
+                              Text(
+                                "   ทดสอบ ยอดจำปา",
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              TextButton(
+                                child: const Text('จ่ายบิล'),
+                                onPressed: () {/* ... */},
+                              ),
+                              const SizedBox(width: 8),
+                              TextButton(
+                                child: const Text('ประวัติการชำระ'),
+                                onPressed: () {/* ... */},
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                    Row(
-                      children: [
-                        Text("ชื่อ-สกุล : ",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        Text(
-                          "ทดสอบ ยอดจำปา",
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text("ที่อยู่ : ",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        Text(
-                          "ทดสอบ ยอดจำปา",
-                        ),
-                      ],
-                    ),
-                  ],
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              child: ElevatedButton(
+                  onPressed: () async {
+                    // กำหดให้รอค่า หลังจากเปิดไปหน้า lgoin
+                    final result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AddMember(),
+                          settings: RouteSettings(arguments: null),
+                        ));
+
+                    // ถ้ามีการปิดหน้มที่เปิด และส่งค่ากลับมาเป็น true
+                    if (result == true) {
+                      // ทำคำสั่งดึงข้อมูลผู้ใช้ เมื่อล็อกอินผ่าน
+                      fetchUser();
+                    }
+                  },
+                  child: Text('Go Add Member')),
+            ),
+            Expanded(
+              child: Container(
+                child: FutureBuilder<dynamic>(
+                  future: loadmemberPlus(_id),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView.builder(shrinkWrap: true,
+                          //สร้าง Widget ListView
+                          padding: EdgeInsets.all(16.0),
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (context, i) {
+                            //หากไม่สร้าง Object สามารถเรียกใช้งานแบบนี้ได้เลย
+                            return ListTile(
+                              leading: Icon(Icons.car_rental),
+                              title: Text(snapshot.data![i]['id_save']),
+                            );
+                          });
+                    } else if (snapshot.hasError) {
+                      return Text("${snapshot.error}");
+                    } else if (!snapshot.hasData) {
+                      return Text("Nodata");
+                    }
+            
+                    // รูป Spiner ขณะรอโหลดข้อมูล
+                    return CircularProgressIndicator();
+                  },
                 ),
               ),
             ),
           ],
         ),
-        
-        
-      ),
-      
-    );
-  }
-}
