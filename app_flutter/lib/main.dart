@@ -45,7 +45,9 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         home: HelloConvexAppBar(),
 
-        /*      initialRoute: '/', // สามารถใช้ home แทนได้
+        /*      
+        routes: routes
+        initialRoute: '/', // สามารถใช้ home แทนได้
 
           routes: {
                       Launcher.routeName: (context) => Launcher(),

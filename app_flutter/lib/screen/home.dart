@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_new, unused_field, unused_local_variable, avoid_print, unused_import, prefer_final_fields, prefer_const_literals_to_create_immutables
 
 import 'package:app_flutter/models/user_model.dart';
+import 'package:app_flutter/screen/getwidget.dart';
 import 'package:app_flutter/screen/member.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -115,6 +116,27 @@ class _HomeState extends State<Home> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text('Profile Screen'),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(10),
+                                  ),
+                                  boxShadow: [
+                                    // to make elevation
+                                    BoxShadow(
+                                      color: Colors.black45,
+                                      offset: Offset(2, 2),
+                                      blurRadius: 4,
+                                    ),
+                                    // to make the coloured border
+                                    BoxShadow(
+                                      color: Colors.blue,
+                                      offset: Offset(0, 4),
+                                    ),
+                                  ],
+                                ),
+                              ),
                               Visibility(
                                 // ส่วนที่แสดงกรณีล็อกอินแล้ว
                                 visible:
@@ -144,7 +166,7 @@ class _HomeState extends State<Home> {
                                             // ไปหน้าล็อกอิน
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) => Member(),
+                                              builder: (context) => MyWidget(),
                                               settings: RouteSettings(
                                                   arguments: null),
                                             ));
