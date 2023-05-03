@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
 
@@ -74,8 +74,8 @@ class _MyWidgetState extends State<MyWidget> {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      Colors.blue.withOpacity(0.7),
                       Color.fromARGB(255, 12, 102, 248).withOpacity(0.9),
+                      Colors.blue.withOpacity(0.7),
                     ],
                     begin: Alignment.bottomLeft,
                     end: Alignment.centerRight,
@@ -151,8 +151,57 @@ class _MyWidgetState extends State<MyWidget> {
                               ),
                             ),
                           ],
-                        )
+                        ),
                       ]),
+                ),
+              ),
+              SizedBox(height: 15),
+              Container(
+                height: 180,
+                width: MediaQuery.of(context).size.width,
+                child: Stack(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.only(top: 20),
+                      height: 150,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                              image: NetworkImage(
+                                  'https://chawtaichonburi.com/appdata/img/sky.jpg'),
+                              fit: BoxFit.fill),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black.withOpacity(0.3),
+                                blurRadius: 20,
+                                offset: Offset(8, 7)
+                                ),
+                                BoxShadow(
+                                color: Colors.black.withOpacity(0.3),
+                                blurRadius: 10,
+                                offset: Offset(-1, -7)
+                                ),
+                          ]),
+                    ),
+                    Container(
+                      height: 100,
+                      margin: EdgeInsets.only(left: 150,top: 50),
+                      child: Column(children: [
+                             Text(
+                          'Add Glutes Workout',
+                          style: TextStyle(
+                              fontSize: 19,
+                              color: Color.fromARGB(255, 172, 82, 241),
+                              fontWeight: FontWeight.w700),
+                        ),
+                        SizedBox(height: 10,),
+                        RichText(text: TextSpan(
+                          
+                        ))
+                      ]),
+                    )
+                  ],
                 ),
               )
             ],
