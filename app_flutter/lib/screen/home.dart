@@ -124,7 +124,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
-             Visibility(
+            Visibility(
               visible: !_loginSuccess,
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 5),
@@ -144,92 +144,111 @@ class _HomeState extends State<Home> {
                         topLeft: Radius.circular(60),
                         topRight: Radius.circular(60),
                       )),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Text('Profile Screen'),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(10),
+                  child: SingleChildScrollView(
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 30),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Card(
+                              shadowColor: Colors.black,
+                              color: Colors.greenAccent[100],
+                              child: SizedBox(
+                                width: 300,
+                                height: 150,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Column(
+                                    children: [
+                                      const Text(
+                                        'Custom card',
+                                        style: TextStyle(
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.w500,
+                                        ), //Textstyle
+                                      ), //Text
+                                      const SizedBox(
+                                        height: 10,
+                                      ), //SizedBox
+                                      const Text(
+                                        'This is the card widget',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                        ), //Textstyle
+                                      ), //Text
+                                      const SizedBox(
+                                        height: 10,
+                                      ), //SizedBox
+                               
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
-                            boxShadow: [
-                              // to make elevation
-                              BoxShadow(
-                                color: Colors.black45,
-                                offset: Offset(2, 2),
-                                blurRadius: 4,
+                            Visibility(
+                              // ส่วนที่แสดงกรณีล็อกอินแล้ว
+                              visible:
+                                  _loginSuccess, // ใช้สถานะการล็อกอินกำหนดกรแสดง
+                              child: Column(
+                                children: [
+                                  FlutterLogo(
+                                    size: 100,
+                                  ),
+                                  Text('Welcome $_firstname $_lastname'),
+                                  //Text(_email), // แสดงอีเมล
+                                  ElevatedButton(
+                                    onPressed: () async {
+                                      // เมื่อล็อกเอาท์
+                                      // ทำการออกจากระบบ
+                                      await userProvider.logout();
+                                      setState(() {
+                                        _loginSuccess = false;
+                                      });
+                                    },
+                                    child: Text('Logout'),
+                                  ),
+                                  //Text(_email), // แสดงอีเมล
+                                  ElevatedButton(
+                                    onPressed: () async {
+                                      Navigator.push(
+                                          // ไปหน้าล็อกอิน
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => MyWidget(),
+                                            settings:
+                                                RouteSettings(arguments: null),
+                                          ));
+                                    },
+                                    child: Text('GO TO MEMBER'),
+                                  ),
+                                ],
                               ),
-                              // to make the coloured border
-                              BoxShadow(
-                                color: Colors.blue,
-                                offset: Offset(0, 4),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Visibility(
-                          // ส่วนที่แสดงกรณีล็อกอินแล้ว
-                          visible:
-                              _loginSuccess, // ใช้สถานะการล็อกอินกำหนดกรแสดง
-                          child: Column(
-                            children: [
-                              FlutterLogo(
-                                size: 100,
-                              ),
-                              Text('Welcome $_firstname $_lastname'),
-                              //Text(_email), // แสดงอีเมล
-                              ElevatedButton(
-                                onPressed: () async {
-                                  // เมื่อล็อกเอาท์
-                                  // ทำการออกจากระบบ
-                                  await userProvider.logout();
-                                  setState(() {
-                                    _loginSuccess = false;
-                                  });
-                                },
-                                child: Text('Logout'),
-                              ),
-                              //Text(_email), // แสดงอีเมล
-                              ElevatedButton(
-                                onPressed: () async {
-                                  Navigator.push(
-                                      // ไปหน้าล็อกอิน
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => MyWidget(),
-                                        settings:
-                                            RouteSettings(arguments: null),
-                                      ));
-                                },
-                                child: Text('GO TO MEMBER'),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Visibility(
-                          visible: !_loginSuccess,
-                          child: ElevatedButton(
-                              onPressed: () async {
-                                // กำหดให้รอค่า หลังจากเปิดไปหน้า lgoin
-                                final result = await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => Login(),
-                                      settings: RouteSettings(arguments: null),
-                                    ));
+                            ),
+                            Visibility(
+                              visible: !_loginSuccess,
+                              child: ElevatedButton(
+                                  onPressed: () async {
+                                    // กำหดให้รอค่า หลังจากเปิดไปหน้า lgoin
+                                    final result = await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Login(),
+                                          settings:
+                                              RouteSettings(arguments: null),
+                                        ));
 
-                                // ถ้ามีการปิดหน้มที่เปิด และส่งค่ากลับมาเป็น true
-                                if (result == true) {
-                                  // ทำคำสั่งดึงข้อมูลผู้ใช้ เมื่อล็อกอินผ่าน
-                                  fetchUser();
-                                }
-                              },
-                              child: Text('Go to Login')),
+                                    // ถ้ามีการปิดหน้มที่เปิด และส่งค่ากลับมาเป็น true
+                                    if (result == true) {
+                                      // ทำคำสั่งดึงข้อมูลผู้ใช้ เมื่อล็อกอินผ่าน
+                                      fetchUser();
+                                    }
+                                  },
+                                  child: Text('Go to Login')),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   )),
             ),
