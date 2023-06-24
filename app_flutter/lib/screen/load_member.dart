@@ -91,38 +91,38 @@ class _LoadMemberState extends State<LoadMember> {
       appBar: AppBar(
         title: Text('LOAD MEMBER'),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          child: FutureBuilder<dynamic>(
-              future: loadmemberPlus(_id),
-              builder: (context, snashot) {
-                if (snashot.connectionState == ConnectionState.done) {
-                  if (snashot.data.length > 0) {
-                    print('DaTA = ' '${snashot.data.length}');
-                    return ListView.builder(
-                        //สร้าง Widget ListView
-                        shrinkWrap: true,
-                        padding: const EdgeInsets.all(16.0),
-                        itemCount: snashot.data.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            margin: const EdgeInsets.all(20.0),
-                            height: 150.0,
-                            width: double.infinity,
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color(0xffDDDDDD),
-                                  blurRadius: 6.0,
-                                  spreadRadius: 1.0,
-                                  offset: Offset(0.0, 0.0),
-                                ),
-                              ],
+      body: Container(
+        child: FutureBuilder<dynamic>(
+            future: loadmemberPlus(_id),
+            builder: (context, snashot) {
+              if (snashot.connectionState == ConnectionState.done) {
+                if (snashot.data.length > 0) {
+                  print('DaTA = ' '${snashot.data.length}');
+                  return ListView.builder(
+                      //สร้าง Widget ListView
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.all(16.0),
+                      itemCount: snashot.data.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          margin: const EdgeInsets.all(20.0),
+                          height: 150.0,
+                          width: double.infinity,
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
                             ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color(0xffDDDDDD),
+                                blurRadius: 6.0,
+                                spreadRadius: 1.0,
+                                offset: Offset(0.0, 0.0),
+                              ),
+                            ],
+                          ),
+                          child: SingleChildScrollView(
                             child: Padding(
                               padding: const EdgeInsets.all(12),
                               child: Column(
@@ -159,26 +159,48 @@ class _LoadMemberState extends State<LoadMember> {
                                               fontSize: 15, color: Colors.red),
                                         ),
                                         onPressed: () async {
+                                          final result = await showDialog<bool>(
+                                            context: context,
+                                            builder: (context) => AlertDialog(
+                                              title:
+                                                  const Text('Are you sure?'),
+                                              content: const Text(
+                                                  'This action will permanently delete this data'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          context, false),
+                                                  child: const Text('Cancel'),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          context, true),
+                                                  child: const Text('Delete'),
+                                                ),
+                                              ],
+                                            ),
+                                          );
                                           //print(snashot.data![index].memberId);
                                           // ใช้งาน provider
-                                          UserProvider userProvider =
+                                          /*  UserProvider userProvider =
                                               context.read<UserProvider>();
                                           //print(_id);
                                           var result =
                                               await userProvider.DelUser(snashot
                                                   .data![index].memberId);
-
-                                          setState(() {
-                                            if (result['ลบข้อมูลสำเร็จ'] !=
-                                                null) {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                const SnackBar(
-                                                    content:
-                                                        Text('ลบข้อมูลสำเร็จ')),
-                                              );
-                                            }
-                                          });
+                                          if (result['msg'] =='ลบข้อมูลสำเร็จ') {
+                                                setState(() {
+                                                     ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                  content:
+                                                      Text('ลบข้อมูลสำเร็จ')),
+                                            );
+                                                });
+                                         
+                                          } */
                                         },
                                       ),
                                     ],
@@ -186,36 +208,36 @@ class _LoadMemberState extends State<LoadMember> {
                                 ],
                               ),
                             ),
-                          );
-                        });
-                  } else {
-                    // ถ้าดาต้าไม่มีค่า
-                    return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 100),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.max,
-                          children: <Widget>[
-                            Center(
-                              child: new CircularProgressIndicator(),
-                            ),
-                            SizedBox(
-                              height: 50,
-                            ),
-                            Text(
-                              'No DATA',
-                              style: TextStyle(fontSize: 20),
-                            )
-                          ],
-                        ));
-                  }
-                  // รูป Spiner ขณะรอโหลดข้อมูล
-                } else if (snashot.hasError) {
-                  return Text("${snashot.error}");
+                          ),
+                        );
+                      });
+                } else {
+                  // ถ้าดาต้าไม่มีค่า
+                  return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 100),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        children: <Widget>[
+                          Center(
+                            child: new CircularProgressIndicator(),
+                          ),
+                          SizedBox(
+                            height: 50,
+                          ),
+                          Text(
+                            'No DATA',
+                            style: TextStyle(fontSize: 20),
+                          )
+                        ],
+                      ));
                 }
-                return LinearProgressIndicator();
-              }),
-        ),
+                // รูป Spiner ขณะรอโหลดข้อมูล
+              } else if (snashot.hasError) {
+                return Text("${snashot.error}");
+              }
+              return LinearProgressIndicator();
+            }),
       ),
     );
   }

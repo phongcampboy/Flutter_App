@@ -125,7 +125,7 @@ class UserProvider {
     final response =
         await http.post(Uri.parse(ApiUrl.deluser), // ใช้ url จากค่าที่กำหนด
             body: {
-          'memberID': id,
+          'id_save': id,
         });
 
     // เมื่อมีข้อมูลกลับมา
