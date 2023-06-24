@@ -56,11 +56,11 @@ class _LoadMemberState extends State<LoadMember> {
     });
   }
 
-  Future<List> loadmemberPlus(_id) async {
+  Future<List> loadmemberPlus(id) async {
     List result = [];
 
     final Map<String, dynamic> loadData = {
-      'memberID': _id,
+      'memberID': id,
     };
 
     // ทำการดึงข้อมูลจาก server ตาม url ที่กำหนด
@@ -73,8 +73,7 @@ class _LoadMemberState extends State<LoadMember> {
     // เมื่อมีข้อมูลกลับมา
     if (response.statusCode == 200) {
       final data = await json.decode(response.body);
-
-      // print(data);
+      //print(data);
       if (data != null) {
         data.forEach((item) {
           result.add(Addmember.fromJson(item));
@@ -99,6 +98,7 @@ class _LoadMemberState extends State<LoadMember> {
               builder: (context, snashot) {
                 if (snashot.connectionState == ConnectionState.done) {
                   if (snashot.data.length > 0) {
+                    print('DaTA = ' '${snashot.data.length}');
                     return ListView.builder(
                         //สร้าง Widget ListView
                         shrinkWrap: true,
@@ -171,7 +171,6 @@ class _LoadMemberState extends State<LoadMember> {
                                           setState(() {
                                             if (result['ลบข้อมูลสำเร็จ'] !=
                                                 null) {
-
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(
                                                 const SnackBar(
