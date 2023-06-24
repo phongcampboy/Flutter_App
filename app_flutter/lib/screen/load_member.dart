@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, no_leading_underscores_for_local_identifiers, prefer_const_constructors, avoid_unnecessary_containers, dead_code, prefer_const_literals_to_create_immutables, unnecessary_new
+// ignore_for_file: avoid_print, no_leading_underscores_for_local_identifiers, prefer_const_constructors, avoid_unnecessary_containers, dead_code, prefer_const_literals_to_create_immutables, unnecessary_new, non_constant_identifier_names, prefer_typing_uninitialized_variables, unused_local_variable, use_build_context_synchronously, unnecessary_null_comparison
 
 import 'dart:convert';
 
@@ -52,7 +52,7 @@ class _LoadMemberState extends State<LoadMember> {
     setState(() {
       _id = _user!.memberId;
 
-      //loadmemberPlus(_id);
+      loadmemberPlus(_id);
     });
   }
 
@@ -74,7 +74,7 @@ class _LoadMemberState extends State<LoadMember> {
     if (response.statusCode == 200) {
       final data = await json.decode(response.body);
 
-      //print(data);
+      // print(data);
       if (data != null) {
         data.forEach((item) {
           result.add(Addmember.fromJson(item));
@@ -150,12 +150,47 @@ class _LoadMemberState extends State<LoadMember> {
                                       ),
                                     ],
                                   ),
+                                  Row(
+                                    children: <Widget>[
+                                      TextButton(
+                                        child: const Text(
+                                          'ลบ',
+                                          style: TextStyle(
+                                              fontSize: 15, color: Colors.red),
+                                        ),
+                                        onPressed: () async {
+                                          //print(snashot.data![index].memberId);
+                                          // ใช้งาน provider
+                                          UserProvider userProvider =
+                                              context.read<UserProvider>();
+                                          //print(_id);
+                                          var result =
+                                              await userProvider.DelUser(snashot
+                                                  .data![index].memberId);
+
+                                          setState(() {
+                                            if (result['ลบข้อมูลสำเร็จ'] !=
+                                                null) {
+
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                const SnackBar(
+                                                    content:
+                                                        Text('ลบข้อมูลสำเร็จ')),
+                                              );
+                                            }
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  )
                                 ],
                               ),
                             ),
                           );
                         });
-                  } else {// ถ้าดาต้าไม่มีค่า
+                  } else {
+                    // ถ้าดาต้าไม่มีค่า
                     return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 100),
                         child: Column(
@@ -168,7 +203,10 @@ class _LoadMemberState extends State<LoadMember> {
                             SizedBox(
                               height: 50,
                             ),
-                            Text('No DATA',style: TextStyle(fontSize: 20),)
+                            Text(
+                              'No DATA',
+                              style: TextStyle(fontSize: 20),
+                            )
                           ],
                         ));
                   }

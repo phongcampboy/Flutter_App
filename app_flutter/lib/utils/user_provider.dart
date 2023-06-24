@@ -82,9 +82,10 @@ class UserProvider {
     if (response.statusCode == 200) {
       var body = response.body;
       result = await json.decode(body);
-      if (result['success'] != null) {
+       print(result);
+     /*  if (result['success'] != null) {
         print(result);
-      }
+      } */
     } else {
       // กรณี error
       throw Exception('Failed to load data');
@@ -108,7 +109,29 @@ class UserProvider {
     // เมื่อมีข้อมูลกลับมา
     if (response.statusCode == 200) {
       var body = response.body;
-      print(body);
+      //print(body);
+      result = await json.decode(body);
+    } else {
+      // กรณี error
+      throw Exception('Failed to load data');
+    }
+    return result;
+  }
+
+  Future<Map<String, dynamic>> DelUser(id) async {
+  
+    var result;
+
+    final response =
+        await http.post(Uri.parse(ApiUrl.deluser), // ใช้ url จากค่าที่กำหนด
+            body: {
+          'memberID': id,
+        });
+
+    // เมื่อมีข้อมูลกลับมา
+    if (response.statusCode == 200) {
+      var body = response.body;
+      //print(body);
       result = await json.decode(body);
     } else {
       // กรณี error
