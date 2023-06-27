@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, no_leading_underscores_for_local_identifiers, prefer_const_constructors, avoid_unnecessary_containers, dead_code, prefer_const_literals_to_create_immutables, unnecessary_new, non_constant_identifier_names, prefer_typing_uninitialized_variables, unused_local_variable, use_build_context_synchronously, unnecessary_null_comparison
+// ignore_for_file: avoid_print, no_leading_underscores_for_local_identifiers, prefer_const_constructors, avoid_unnecessary_containers, dead_code, prefer_const_literals_to_create_immutables, unnecessary_new, non_constant_identifier_names, prefer_typing_uninitialized_variables, unused_local_variable, use_build_context_synchronously, unnecessary_null_comparison, prefer_final_fields
 
 import 'dart:convert';
 
@@ -21,6 +21,7 @@ class _LoadMemberState extends State<LoadMember> {
   late bool _loginSuccess; // กำหดตัวแปรสถานะการล็อกอิน
   Usermodel? _user;
   String _id = '';
+
   @override
   void initState() {
     super.initState();
@@ -97,7 +98,7 @@ class _LoadMemberState extends State<LoadMember> {
             builder: (context, snashot) {
               if (snashot.connectionState == ConnectionState.done) {
                 if (snashot.data.length > 0) {
-                  print('DaTA = ' '${snashot.data.length}');
+                  //print('DaTA = ' '${snashot.data.length}');
                   return ListView.builder(
                       //สร้าง Widget ListView
                       shrinkWrap: true,
@@ -166,41 +167,52 @@ class _LoadMemberState extends State<LoadMember> {
                                                   const Text('Are you sure?'),
                                               content: const Text(
                                                   'This action will permanently delete this data'),
-                                              actions: [
+                                              actions: <Widget>[
                                                 TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          context, false),
+                                                  onPressed: () {
+                                                    Navigator.pop(
+                                                        context, false);
+                                                  },
                                                   child: const Text('Cancel'),
                                                 ),
                                                 TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          context, true),
+                                                  onPressed: () async {
+                                                    UserProvider userProvider =
+                                                        context.read<
+                                                            UserProvider>();
+                                                    //print(snashot.data![index].memberId);
+                                                    var result =
+                                                        await userProvider
+                                                            .DelUser(snashot
+                                                                .data![index]
+                                                                .memberId);
+                                                    if (result['msg'] ==
+                                                        'ลบข้อมูลสำเร็จ') {
+                                                      setState(() {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                          const SnackBar(
+                                                              duration:
+                                                                  Duration(
+                                                                      seconds:
+                                                                          5),
+                                                              behavior:
+                                                                  SnackBarBehavior
+                                                                      .fixed,
+                                                              content: Text(
+                                                                  'ลบข้อมูลสำเร็จ')),
+                                                        );
+                                                      });
+                                                    }
+                                                    Navigator.pop(
+                                                        context, true);
+                                                  },
                                                   child: const Text('Delete'),
                                                 ),
                                               ],
                                             ),
                                           );
-                                          //print(snashot.data![index].memberId);
-                                          // ใช้งาน provider
-                                          /*  UserProvider userProvider =
-                                              context.read<UserProvider>();
-                                          //print(_id);
-                                          var result =
-                                              await userProvider.DelUser(snashot
-                                                  .data![index].memberId);
-                                          if (result['msg'] =='ลบข้อมูลสำเร็จ') {
-                                                setState(() {
-                                                     ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              const SnackBar(
-                                                  content:
-                                                      Text('ลบข้อมูลสำเร็จ')),
-                                            );
-                                                });
-                                         
-                                          } */
                                         },
                                       ),
                                     ],

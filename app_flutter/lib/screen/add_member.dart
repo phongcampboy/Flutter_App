@@ -84,9 +84,9 @@ class _AddMemberState extends State<AddMember> {
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'กรุณากรอกข้อมูล!';
-                        }else if (!RegExp(r'^[A-Za-z0-9]+$').hasMatch(value)) {
+                        }/* else if (!RegExp(r'^[A-Za-z0-9]+$').hasMatch(value)) {
                           return "ไม่อนุญาตภาษาไทย!";
-                        }
+                        } */
 
                         return null;
                       },

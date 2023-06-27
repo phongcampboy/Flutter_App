@@ -2,6 +2,7 @@
 
 import 'package:app_flutter/screen/add_member.dart';
 import 'package:app_flutter/screen/load_member.dart';
+import 'package:app_flutter/screen/paybill.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/user_model.dart';
@@ -129,7 +130,15 @@ class _MemberState extends State<Member> {
                       children: <Widget>[
                         TextButton(
                           child: const Text('จ่ายบิล'),
-                          onPressed: () {/* ... */},
+                          onPressed: () {
+                            Navigator.push(
+                                // ไปหน้าล็อกอิน
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => PayBill(),
+                                  settings: RouteSettings(arguments: null),
+                                ));
+                          },
                         ),
                         const SizedBox(width: 8),
                         TextButton(
