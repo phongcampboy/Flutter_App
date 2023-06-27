@@ -8,5 +8,6 @@ class ApiUrl {
   static const String register = baseURL + "/tmn_reg.php";
   static const String addmemberplus = baseURL + "/tmn_addMember.php";
   static const String getmemberplus = baseURL + "/tmn_LoadmeberPlus.php";
+  static const String loadmember = baseURL + "/load_member.php";
   static const String deluser = baseURL + "/tmndel.php";
 }
