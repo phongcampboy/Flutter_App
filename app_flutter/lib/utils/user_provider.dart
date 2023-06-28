@@ -14,15 +14,6 @@ class UserProvider {
     return prefs.getBool('loginSuccess') ?? false;
   }
 
-  // ฟังก์ชั่นดึงข้อมูลผู้ใช้ทั่วไป จากข้อมูล SharedPreferences
-  Future<Usermodel> getUser() async {
-    final SharedPreferences prefs = await _prefs;
-    return Usermodel(
-      memberId: prefs.getString('user_id')!,
-      firstName: prefs.getString('firstName')!,
-      lastName: prefs.getString('lastName')!,
-    );
-  }
 
   //  ฟังก์ชั่นล็อกเอาท์ออกจากระบบ ล้างค่าข้อมูล SharedPreferences
   Future<bool> logout() async {
@@ -63,6 +54,15 @@ class UserProvider {
     return result;
   }
 
+  // ฟังก์ชั่นดึงข้อมูลผู้ใช้ทั่วไป จากข้อมูล SharedPreferences
+  Future<Usermodel> getUser() async {
+    final SharedPreferences prefs = await _prefs;
+    return Usermodel(
+      memberId: prefs.getString('user_id')!,
+      firstName: prefs.getString('firstName')!,
+      lastName: prefs.getString('lastName')!,
+    );
+  }
   Future<Map<String, dynamic>> addmemberPlus(String idAdd, String MemID) async {
     var result;
 

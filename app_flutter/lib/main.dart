@@ -1,5 +1,6 @@
 // ignore_for_file: unused_import, prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print, use_key_in_widget_constructors
 
+import 'package:app_flutter/models/loadmem_member.dart';
 import 'package:app_flutter/routes/routes.dart';
 import 'package:app_flutter/screen/cabletv.dart';
 import 'package:app_flutter/screen/cctv.dart';
@@ -21,9 +22,9 @@ import 'package:flutter/services.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-    .then((_) {
-      runApp(MyApp());
-    });
+      .then((_) {
+    runApp(MyApp());
+  });
 }
 
 class MyApp extends StatefulWidget {
@@ -38,7 +39,20 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Provider(
+    return MultiProvider(
+      providers: [
+        Provider<UserProvider>(create: (_) => UserProvider()),
+        Provider<Getmember>(create: (_) => Getmember()),
+      ],
+      // create: (_) => UserProvider(),
+
+      child: MaterialApp(
+        title: 'First Flutter App',
+        debugShowCheckedModeBanner: false,
+        home: HelloConvexAppBar(),
+      ),
+    );
+    /*    return Provider(
       create: (_) => UserProvider(),
       child: MaterialApp(
         title: 'First Flutter App',
@@ -53,7 +67,7 @@ class _MyAppState extends State<MyApp> {
                       Launcher.routeName: (context) => Launcher(),
                   },  */
       ),
-    );
+    ); */
   }
 }
 
@@ -63,7 +77,7 @@ class HelloConvexAppBar extends StatefulWidget {
 }
 
 class _HelloConvexAppBarState extends State<HelloConvexAppBar> {
-  List pages = [Home(), Cabletv(), Net(),Cctv()];
+  List pages = [Home(), Cabletv(), Net(), Cctv()];
 
   int _selectedIndex = 0;
 

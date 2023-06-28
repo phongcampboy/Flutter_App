@@ -12,6 +12,7 @@ import 'package:http/http.dart' as http;
 class LoadMember extends StatefulWidget {
   const LoadMember({super.key});
 
+
   @override
   State<LoadMember> createState() => _LoadMemberState();
 }
@@ -52,7 +53,7 @@ class _LoadMemberState extends State<LoadMember> {
     setState(() {
       _id = _user!.memberId;
 
-      loadmemberPlus(_id);
+      //loadmemberPlus(_id);
     });
   }
 
