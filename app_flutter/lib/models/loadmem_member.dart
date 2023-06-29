@@ -9,43 +9,43 @@ Getmember getmemberFromJson(String str) => Getmember.fromJson(json.decode(str));
 String getmemberToJson(Getmember data) => json.encode(data.toJson());
 
 class Getmember {
-  String memberId;
-  String firstName;
-  String lastName;
-  String streetNo;
-  String moo;
-  String mooban;
-  String descriptionRate;
-  String tel1;
-  String memberStatusId;
-  String lastPay;
-  String nextPay;
-  String total;
-  String amount;
-  String isPay;
-  String billingCode;
-  String success;
+    String memberId;
+    String firstName;
+    String lastName;
+    String streetNo;
+    String moo;
+    String mooban;
+    String descriptionRate;
+    String tel1;
+    String memberStatusId;
+    String lastPay;
+    String nextPay;
+    String total;
+    String amount;
+    String isPay;
+    String billingCode;
+    String success;
 
-  Getmember({
-    this.memberId = "",
-    this.firstName = "",
-    this.lastName = "",
-    this.streetNo = "",
-    this.moo = "",
-    this.mooban = "",
-    this.descriptionRate = "",
-    this.tel1 = "",
-    this.memberStatusId = "",
-    this.lastPay = "",
-    this.nextPay = "",
-    this.total = "",
-    this.amount = "",
-    this.isPay = "",
-    this.billingCode = "",
-    this.success = "",
-  });
+    Getmember({
+        this.memberId ="",
+        this.firstName ="",
+        this.lastName ="",
+        this.streetNo ="",
+        this.moo ="",
+        this.mooban ="",
+        this.descriptionRate ="",
+        this.tel1 ="",
+        this.memberStatusId ="",
+        this.lastPay ="",
+        this.nextPay ="",
+        this.total ="",
+        this.amount ="",
+        this.isPay ="",
+        this.billingCode ="",
+        this.success="",
+    });
 
-  factory Getmember.fromJson(Map<String, dynamic> json) => Getmember(
+    factory Getmember.fromJson(Map<String, dynamic> json) => Getmember(
         memberId: json["MemberID"],
         firstName: json["FirstName"],
         lastName: json["LastName"],
@@ -62,9 +62,9 @@ class Getmember {
         isPay: json["IsPay"],
         billingCode: json["BillingCode"],
         success: json["success"],
-      );
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "MemberID": memberId,
         "FirstName": firstName,
         "LastName": lastName,
@@ -81,5 +81,5 @@ class Getmember {
         "IsPay": isPay,
         "BillingCode": billingCode,
         "success": success,
-      };
+    };
 }

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unused_field, avoid_print, avoid_unnecessary_containers, prefer_typing_uninitialized_variables, unnecessary_new, non_constant_identifier_names, use_build_context_synchronously, no_leading_underscores_for_local_identifiers, unused_local_variable, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, unused_field, avoid_print, avoid_unnecessary_containers, prefer_typing_uninitialized_variables, unnecessary_new, non_constant_identifier_names, use_build_context_synchronously, no_leading_underscores_for_local_identifiers, unused_local_variable, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations
 
 import 'dart:convert';
 import 'package:app_flutter/models/loadmem_member.dart';
@@ -8,6 +8,7 @@ import '../constants/api_parth.dart';
 import '../models/user_model.dart';
 import '../utils/user_provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:qr_flutter/qr_flutter.dart';
 
 class PayBill extends StatefulWidget {
   const PayBill({super.key});
@@ -23,7 +24,8 @@ class _PayBillState extends State<PayBill> {
   // Getmember? _GetMember;
   late bool _loginSuccess; // กำหดตัวแปรสถานะการล็อกอิน
   String _id = '';
-  String mem_id = '';
+  String code = '';
+  String amount = '';
 
   @override
   void initState() {
@@ -40,14 +42,10 @@ class _PayBillState extends State<PayBill> {
     setState(() {
       // _loginSuccess = true;
       _id = _user!.memberId;
-      print(_id);
     });
-    //DataMember(_id);
   }
 
   Future<Getmember?> DataMember(id) async {
-
-
     final Map<String, dynamic> loadData = {
       'memberID': id,
     };
@@ -64,12 +62,7 @@ class _PayBillState extends State<PayBill> {
       final data = await json.decode(response.body);
       print(data);
       return Getmember.fromJson(data);
-      /*     if (data != null) {
-        data.forEach((item) {
-          result.add(Getmember.fromJson(item));
-        });
-      } */
-    } 
+    }
     return null;
   }
 
@@ -87,8 +80,13 @@ class _PayBillState extends State<PayBill> {
                     future: DataMember(_id),
                     builder: (context, snashot) {
                       if (snashot.connectionState == ConnectionState.done) {
-                        if (snashot.data!=null) {
+                        if (snashot.data != null) {
+                          code = snashot.data!.billingCode;
+                          amount = snashot.data!.amount;
                           return Container(
+                            margin: const EdgeInsets.all(20.0),
+                            //height: 150.0,
+                            width: double.infinity,
                             decoration: const BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.all(
@@ -103,109 +101,130 @@ class _PayBillState extends State<PayBill> {
                                 ),
                               ],
                             ),
-                            child: Column(
-                              children: [
-                                Row(
+                            child: SingleChildScrollView(
+                              child: Padding(
+                                padding: const EdgeInsets.all(12),
+                                child: Column(
                                   children: [
-                                    Text("รหัสสมาชิก  : ",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18)),
-                                    Text(snashot.data!.memberId),
+                                    FlutterLogo(
+                                      size: 80,
+                                    ),
+                                    Center(
+                                      child: Text(
+                                          "บริษัท ซุปเปอร์ ไฮสปีด อินเทอร์เน็ต จำกัด \n 46/20 หมู่ 4 ห้วยใหญ่ บางละมุง ชลบุรี 20150 ",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15)),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text("รหัสสมาชิก  : ",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15)),
+                                        Text(snashot.data!.memberId),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text("ชื่อ-สกุล  : ",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15)),
+                                        Text(snashot.data!.firstName),
+                                        Text("  "),
+                                        Text(snashot.data!.lastName)
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text("เบอร์โทรศัพท์  : ",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15)),
+                                        Text(snashot.data!.tel1),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text("สถานะ  : ",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15)),
+                                        Text(snashot.data!.memberStatusId),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text("ประเภทบริการ  : ",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15)),
+                                        Text(snashot.data!.descriptionRate),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text("รอบบริการ  : ",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15)),
+                                        Text(snashot.data!.lastPay),
+                                        Text(" ถึง "),
+                                        Text(snashot.data!.nextPay)
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text("รวมยอดชำระ  : ",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15)),
+                                        Text(snashot.data!.total),
+                                        Text("  บาท")
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text('($amount)',
+                                            style: TextStyle(fontSize: 16)),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    QrImageView(
+                                      data: '$code',
+                                      version: QrVersions.auto,
+                                      size: 150.0,
+                                    ),
+                                    SizedBox(
+                                      height: 7,
+                                    ),
+                                    Center(
+                                      child: Text(
+                                        snashot.data!.billingCode,
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Center(
+                                      child: Text(
+                                          "ลูกค้าชำระค่าบริการได้ที่ศูนย์บริการ TMN \nหรือชำระผ่านเคาน์เตอร์เซอร์วิส 7-Eleven \nชำระผ่าน เคเบิล ไทยบิลลิ่ง \n*โปรดตรวจสอบความถูกต้องของเอกสาร*",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14)),
+                                    ),
                                   ],
                                 ),
-                                Row(
-                                  children: [
-                                    Text("รหัสสมาชิก  : ",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18)),
-                                    Text('test'),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text("รหัสสมาชิก  : ",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18)),
-                                    Text('test'),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text("รหัสสมาชิก  : ",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18)),
-                                    Text('test'),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text("รหัสสมาชิก  : ",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18)),
-                                    Text('test'),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text("รหัสสมาชิก  : ",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18)),
-                                    Text('test'),
-                                  ],
-                                ),
-                              ],
+                              ),
                             ),
                           );
-                          /*         return ListView.builder(
-                          //สร้าง Widget ListView
-                          shrinkWrap: true,
-                          padding: const EdgeInsets.all(16.0),
-                          itemCount: snashot.data.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              margin: const EdgeInsets.all(20.0),
-                              height: 150.0,
-                              width: double.infinity,
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color(0xffDDDDDD),
-                                    blurRadius: 6.0,
-                                    spreadRadius: 1.0,
-                                    offset: Offset(0.0, 0.0),
-                                  ),
-                                ],
-                              ),
-                              child: SingleChildScrollView(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Text("รหัสสมาชิก  : ",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 18)),
-                                          Text(snashot.data![index].memberId),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          }); */
                         }
                       }
                       return LinearProgressIndicator();

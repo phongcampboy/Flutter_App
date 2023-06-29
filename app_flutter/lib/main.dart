@@ -39,20 +39,20 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+/*     return MultiProvider(
       providers: [
         Provider<UserProvider>(create: (_) => UserProvider()),
         Provider<Getmember>(create: (_) => Getmember()),
       ],
-      // create: (_) => UserProvider(),
+
 
       child: MaterialApp(
         title: 'First Flutter App',
         debugShowCheckedModeBanner: false,
         home: HelloConvexAppBar(),
       ),
-    );
-    /*    return Provider(
+    ); */
+    return Provider(
       create: (_) => UserProvider(),
       child: MaterialApp(
         title: 'First Flutter App',
@@ -67,7 +67,7 @@ class _MyAppState extends State<MyApp> {
                       Launcher.routeName: (context) => Launcher(),
                   },  */
       ),
-    ); */
+    );
   }
 }
 
