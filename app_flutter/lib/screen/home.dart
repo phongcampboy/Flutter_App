@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_new, unused_field, unused_local_variable, avoid_print, unused_import, prefer_final_fields, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, unnecessary_new, unused_field, unused_local_variable, avoid_print, unused_import, prefer_final_fields, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace
 
 import 'package:app_flutter/models/user_model.dart';
 import 'package:app_flutter/screen/getwidget.dart';
@@ -25,6 +25,7 @@ class _HomeState extends State<Home> {
   String _id = '';
   String _firstname = '';
   String _lastname = '';
+  late double screen;
   @override
   void initState() {
     super.initState();
@@ -59,6 +60,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+     screen = MediaQuery.of(context).size.width;
     // ใช้งาน provider
     UserProvider userProvider = context.read<UserProvider>();
     return Scaffold(
@@ -106,18 +108,22 @@ class _HomeState extends State<Home> {
                   ],
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 5,
+                ),
+                Container(
+                  width: screen*0.5,
+                  child: Image.asset('images/hispeed.png'),
                 ),
                 Center(
                   child: Text(
-                    "Member",
-                    style: TextStyle(color: Colors.white, fontSize: 40),
+                    "TMN SUPER HISPEED",
+                    style: TextStyle(color: Colors.white, fontSize: 30),
                   ),
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                Visibility(
+            /*     Visibility(
                   visible: _loginSuccess,
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 5),
@@ -128,7 +134,7 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   ),
-                ),
+                ), */
                 Visibility(
                   visible: !_loginSuccess,
                   child: Padding(
@@ -191,28 +197,37 @@ class _HomeState extends State<Home> {
                                       padding: const EdgeInsets.only(top: 20),
                                       child: Column(
                                         children: [
-                                                const Text(
-                                            'Custom card',
+                                          const Text(
+                                            'Welcome',
                                             style: TextStyle(
-                                              fontSize: 30,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.white
-                                            ), //Textstyle
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.w500,
+                                                color:
+                                                    Colors.white), //Textstyle
                                           ), //Text
                                           const SizedBox(
                                             height: 10,
-                                          ), //SizedBox
-                                          const Text(
-                                            'This is the card widget',
+                                          ),
+                           
+                                       Text(
+                                            'รหัสสมาชิก $_id',
                                             style: TextStyle(
-                                              fontSize: 20,
+                                              fontSize: 20,color:
+                                                    Color.fromARGB(255, 7, 77, 135)
+                                            ), //Textstyle
+                                          ),
+                                          Text(
+                                            '$_firstname $_lastname',
+                                            style: TextStyle(
+                                              fontSize: 20,color:
+                                                     Color.fromARGB(255, 7, 77, 135)
                                             ), //Textstyle
                                           ),
                                           //Text
                                           const SizedBox(
                                             height: 20,
                                           ),
-                                             ElevatedButton(
+                                          ElevatedButton(
                                             onPressed: () async {
                                               // เมื่อล็อกเอาท์
                                               // ทำการออกจากระบบ
@@ -230,7 +245,91 @@ class _HomeState extends State<Home> {
                                 ),
                                 Visibility(
                                   visible: !_loginSuccess,
-                                  child: Card(
+                                    child: Container(
+                                    margin: EdgeInsets.all(20),
+                                    height: 200,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                          colors: [
+                                            Colors.blue,
+                                            Color.fromARGB(255, 120, 184, 248),
+                                            Color.fromARGB(255, 164, 218, 247),
+                                            Color.fromARGB(255, 170, 206, 252)
+                                            //add more colors for gradient
+                                          ],
+                                          begin: Alignment
+                                              .topLeft, //begin of the gradient color
+                                          end: Alignment
+                                              .bottomRight, //end of the gradient color
+                                          stops: [
+                                            0,
+                                            0.2,
+                                            0.5,
+                                            0.8
+                                          ] //stops for individual color
+                                          //set the stops number equal to numbers of color
+                                          ),
+
+                                      borderRadius: BorderRadius.circular(
+                                          30), //border corner radius
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 20),
+                                      child: Column(
+                                        children: [
+                                          const Text(
+                                            'Please login member',
+                                            style: TextStyle(
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.w500,
+                                                color:
+                                                    Colors.white), //Textstyle
+                                          ), //Text
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                           
+                                       Text(
+                                            'กรุณาเข้าสูระบบสมาชิก',
+                                            style: TextStyle(
+                                              fontSize: 20,color:
+                                                    Color.fromARGB(255, 7, 77, 135)
+                                            ), //Textstyle
+                                          ),
+                                    
+                                      
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                            ElevatedButton(
+                                                onPressed: () async {
+                                                  // กำหดให้รอค่า หลังจากเปิดไปหน้า lgoin
+                                                  final result =
+                                                      await Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                    Login(),
+                                                            settings:
+                                                                RouteSettings(
+                                                                    arguments:
+                                                                        null),
+                                                          ));
+
+                                                  // ถ้ามีการปิดหน้มที่เปิด และส่งค่ากลับมาเป็น true
+                                                  if (result == true) {
+                                                    // ทำคำสั่งดึงข้อมูลผู้ใช้ เมื่อล็อกอินผ่าน
+                                                    fetchUser();
+                                                  }
+                                                },
+                                                child: Text('Go to Login')),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  /* child: Card(
                                     shadowColor: Colors.black,
                                     color: Colors.greenAccent[100],
                                     child: SizedBox(
@@ -287,7 +386,7 @@ class _HomeState extends State<Home> {
                                         ),
                                       ),
                                     ),
-                                  ),
+                                  ), */
                                 ),
                                 Visibility(
                                   // ส่วนที่แสดงกรณีล็อกอินแล้ว

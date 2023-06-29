@@ -26,7 +26,7 @@ class _PayBillState extends State<PayBill> {
   String _id = '';
   String code = '';
   String amount = '';
-
+late double screen;
   @override
   void initState() {
     super.initState();
@@ -68,6 +68,7 @@ class _PayBillState extends State<PayBill> {
 
   @override
   Widget build(BuildContext context) {
+        screen = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
           title: Text('PayBill'),
@@ -106,9 +107,10 @@ class _PayBillState extends State<PayBill> {
                                 padding: const EdgeInsets.all(12),
                                 child: Column(
                                   children: [
-                                    FlutterLogo(
-                                      size: 80,
-                                    ),
+                                SizedBox(
+                                  width: screen*0.5,
+                                  child: Image.asset('images/hispeed.png'),
+                                ),
                                     Center(
                                       child: Text(
                                           "บริษัท ซุปเปอร์ ไฮสปีด อินเทอร์เน็ต จำกัด \n 46/20 หมู่ 4 ห้วยใหญ่ บางละมุง ชลบุรี 20150 ",
@@ -199,7 +201,7 @@ class _PayBillState extends State<PayBill> {
                                     QrImageView(
                                       data: '$code',
                                       version: QrVersions.auto,
-                                      size: 150.0,
+                                      size: 130.0,
                                     ),
                                     SizedBox(
                                       height: 7,
