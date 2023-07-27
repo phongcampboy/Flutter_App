@@ -10,6 +10,7 @@ import 'package:app_flutter/screen/login.dart';
 import 'package:app_flutter/screen/net.dart';
 import 'package:app_flutter/screen/register.dart';
 import 'package:app_flutter/screen/splash.dart';
+import 'package:app_flutter/screen/test.dart';
 import 'package:app_flutter/utils/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
