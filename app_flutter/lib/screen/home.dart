@@ -95,7 +95,7 @@ class _HomeState extends State<Home> {
                 Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(30),
+                      padding: const EdgeInsets.all(40),
                       child: Icon(Icons.menu, size: 20, color: Colors.white),
                     ),
                     Expanded(child: Container()),
@@ -117,7 +117,7 @@ class _HomeState extends State<Home> {
                 Center(
                   child: Text(
                     "TMN SUPER HISPEED",
-                    style: TextStyle(color: Colors.white, fontSize: 30),
+                    style: TextStyle(color: Colors.white, fontSize: 23),
                   ),
                 ),
                 SizedBox(
@@ -200,7 +200,7 @@ class _HomeState extends State<Home> {
                                           const Text(
                                             'Welcome',
                                             style: TextStyle(
-                                                fontSize: 30,
+                                                fontSize: 20,
                                                 fontWeight: FontWeight.w500,
                                                 color:
                                                     Colors.white), //Textstyle
@@ -212,14 +212,14 @@ class _HomeState extends State<Home> {
                                        Text(
                                             'รหัสสมาชิก $_id',
                                             style: TextStyle(
-                                              fontSize: 20,color:
+                                              fontSize: 15,color:
                                                     Color.fromARGB(255, 7, 77, 135)
                                             ), //Textstyle
                                           ),
                                           Text(
                                             '$_firstname $_lastname',
                                             style: TextStyle(
-                                              fontSize: 20,color:
+                                              fontSize: 15,color:
                                                      Color.fromARGB(255, 7, 77, 135)
                                             ), //Textstyle
                                           ),
