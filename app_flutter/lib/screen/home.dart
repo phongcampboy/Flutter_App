@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_new, unused_field, unused_local_variable, avoid_print, unused_import, prefer_final_fields, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, unnecessary_new, unused_field, unused_local_variable, avoid_print, unused_import, prefer_final_fields, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace, dead_code
 
 import 'package:app_flutter/models/user_model.dart';
 import 'package:app_flutter/screen/getwidget.dart';
@@ -60,7 +60,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-     screen = MediaQuery.of(context).size.width;
+    screen = MediaQuery.of(context).size.width;
     // ใช้งาน provider
     UserProvider userProvider = context.read<UserProvider>();
     return Scaffold(
@@ -111,7 +111,7 @@ class _HomeState extends State<Home> {
                   height: 5,
                 ),
                 Container(
-                  width: screen*0.5,
+                  width: screen * 0.5,
                   child: Image.asset('images/hispeed.png'),
                 ),
                 Center(
@@ -123,7 +123,7 @@ class _HomeState extends State<Home> {
                 SizedBox(
                   height: 10,
                 ),
-            /*     Visibility(
+                /*     Visibility(
                   visible: _loginSuccess,
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 5),
@@ -208,20 +208,20 @@ class _HomeState extends State<Home> {
                                           const SizedBox(
                                             height: 10,
                                           ),
-                           
-                                       Text(
+
+                                          Text(
                                             'รหัสสมาชิก $_id',
                                             style: TextStyle(
-                                              fontSize: 15,color:
-                                                    Color.fromARGB(255, 7, 77, 135)
-                                            ), //Textstyle
+                                                fontSize: 15,
+                                                color: Color.fromARGB(255, 7,
+                                                    77, 135)), //Textstyle
                                           ),
                                           Text(
                                             '$_firstname $_lastname',
                                             style: TextStyle(
-                                              fontSize: 15,color:
-                                                     Color.fromARGB(255, 7, 77, 135)
-                                            ), //Textstyle
+                                                fontSize: 15,
+                                                color: Color.fromARGB(255, 7,
+                                                    77, 135)), //Textstyle
                                           ),
                                           //Text
                                           const SizedBox(
@@ -245,7 +245,7 @@ class _HomeState extends State<Home> {
                                 ),
                                 Visibility(
                                   visible: !_loginSuccess,
-                                    child: Container(
+                                  child: Container(
                                     margin: EdgeInsets.all(20),
                                     height: 200,
                                     width: double.infinity,
@@ -289,42 +289,40 @@ class _HomeState extends State<Home> {
                                           const SizedBox(
                                             height: 10,
                                           ),
-                           
-                                       Text(
+
+                                          Text(
                                             'กรุณาเข้าสูระบบสมาชิก',
                                             style: TextStyle(
-                                              fontSize: 20,color:
-                                                    Color.fromARGB(255, 7, 77, 135)
-                                            ), //Textstyle
+                                                fontSize: 20,
+                                                color: Color.fromARGB(255, 7,
+                                                    77, 135)), //Textstyle
                                           ),
-                                    
-                                      
+
                                           const SizedBox(
                                             height: 20,
                                           ),
-                                            ElevatedButton(
-                                                onPressed: () async {
-                                                  // กำหดให้รอค่า หลังจากเปิดไปหน้า lgoin
-                                                  final result =
-                                                      await Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                            builder:
-                                                                (context) =>
-                                                                    Login(),
-                                                            settings:
-                                                                RouteSettings(
-                                                                    arguments:
-                                                                        null),
-                                                          ));
+                                          ElevatedButton(
+                                              onPressed: () async {
+                                                // กำหดให้รอค่า หลังจากเปิดไปหน้า lgoin
+                                                final result =
+                                                    await Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              Login(),
+                                                          settings:
+                                                              RouteSettings(
+                                                                  arguments:
+                                                                      null),
+                                                        ));
 
-                                                  // ถ้ามีการปิดหน้มที่เปิด และส่งค่ากลับมาเป็น true
-                                                  if (result == true) {
-                                                    // ทำคำสั่งดึงข้อมูลผู้ใช้ เมื่อล็อกอินผ่าน
-                                                    fetchUser();
-                                                  }
-                                                },
-                                                child: Text('Go to Login')),
+                                                // ถ้ามีการปิดหน้มที่เปิด และส่งค่ากลับมาเป็น true
+                                                if (result == true) {
+                                                  // ทำคำสั่งดึงข้อมูลผู้ใช้ เมื่อล็อกอินผ่าน
+                                                  fetchUser();
+                                                }
+                                              },
+                                              child: Text('Go to Login')),
                                         ],
                                       ),
                                     ),
@@ -392,10 +390,11 @@ class _HomeState extends State<Home> {
                                   // ส่วนที่แสดงกรณีล็อกอินแล้ว
                                   visible:
                                       _loginSuccess, // ใช้สถานะการล็อกอินกำหนดกรแสดง
+
                                   child: Column(
                                     children: [
                                       FlutterLogo(
-                                        size: 100,
+                                        size: 50,
                                       ),
 
                                       //Text(_email), // แสดงอีเมล
