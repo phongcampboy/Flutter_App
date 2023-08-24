@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_new, unused_field, unused_local_variable, avoid_print, unused_import, prefer_final_fields, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace, dead_code
+// ignore_for_file: prefer_const_constructors, unnecessary_new, unused_field, unused_local_variable, avoid_print, unused_import, prefer_final_fields, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace, dead_code, sort_child_properties_last
 
 import 'package:app_flutter/models/user_model.dart';
 import 'package:app_flutter/screen/getwidget.dart';
@@ -98,11 +98,24 @@ class _HomeState extends State<Home> {
                       padding: const EdgeInsets.all(40),
                       child: Icon(Icons.menu, size: 20, color: Colors.white),
                     ),
-                    Expanded(child: Container()),
-                    Icon(
-                      Icons.login_outlined,
-                      size: 30,
+                    Expanded(
+                        child: Container(
+                            //child: Text('data'),
+                            )),
+                    IconButton(
+                      iconSize: 30,
                       color: Color.fromARGB(255, 246, 242, 242),
+                      icon: const Icon(
+                        Icons.login_outlined,
+                      ),
+                      // the method which is called
+                      // when button is pressed
+                      onPressed: () async {
+                        await userProvider.logout();
+                        setState(() {
+                          _loginSuccess = false;
+                        });
+                      },
                     ),
                     SizedBox(width: 12),
                   ],
@@ -327,64 +340,6 @@ class _HomeState extends State<Home> {
                                       ),
                                     ),
                                   ),
-                                  /* child: Card(
-                                    shadowColor: Colors.black,
-                                    color: Colors.greenAccent[100],
-                                    child: SizedBox(
-                                      width: 300,
-                                      height: 170,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(20.0),
-                                        child: Column(
-                                          children: [
-                                            const Text(
-                                              'Custom Not Login',
-                                              style: TextStyle(
-                                                fontSize: 30,
-                                                fontWeight: FontWeight.w500,
-                                              ), //Textstyle
-                                            ), //Text
-                                            const SizedBox(
-                                              height: 10,
-                                            ), //SizedBox
-                                            const Text(
-                                              'This is the card widget',
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                              ), //Textstyle
-                                            ),
-                                            //Text
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            ElevatedButton(
-                                                onPressed: () async {
-                                                  // กำหดให้รอค่า หลังจากเปิดไปหน้า lgoin
-                                                  final result =
-                                                      await Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                            builder:
-                                                                (context) =>
-                                                                    Login(),
-                                                            settings:
-                                                                RouteSettings(
-                                                                    arguments:
-                                                                        null),
-                                                          ));
-
-                                                  // ถ้ามีการปิดหน้มที่เปิด และส่งค่ากลับมาเป็น true
-                                                  if (result == true) {
-                                                    // ทำคำสั่งดึงข้อมูลผู้ใช้ เมื่อล็อกอินผ่าน
-                                                    fetchUser();
-                                                  }
-                                                },
-                                                child: Text('Go to Login')),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ), */
                                 ),
                                 Visibility(
                                   // ส่วนที่แสดงกรณีล็อกอินแล้ว
@@ -393,12 +348,64 @@ class _HomeState extends State<Home> {
 
                                   child: Column(
                                     children: [
-                                      FlutterLogo(
+                                      /*  FlutterLogo(
                                         size: 50,
-                                      ),
-
-                                      //Text(_email), // แสดงอีเมล
-                                      ElevatedButton(
+                                      ), */
+                                      Card(
+                                          elevation: 4.0,
+                                          child: Column(
+                                            children: [
+                                              ListTile(
+                                                title: Text('2300 per month'),
+                                                subtitle: Text(
+                                                    '2 bed, 1 bath, 1300 sqft'),
+                                                trailing: Icon(
+                                                    Icons.favorite_outline),
+                                              ),
+                                              Container(
+                                                height: 200.0,
+                                                child: Image.network(
+                                                    'https://tmncabletv.com/app_flutter/Net/net-tmn.png',
+                                                    fit: BoxFit.cover),
+                                                margin: EdgeInsets.all(5),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.all(16.0),
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(
+                                                    'Beautiful home to rent, recently refurbished with modern appliances...'),
+                                              ),
+                                              ButtonBar(
+                                                children: [
+                                                  /*   TextButton(
+                                                    child: const Text(
+                                                        'CONTACT AGENT'),
+                                                    onPressed: () {/* ... */},
+                                                  ), */
+                                                  TextButton(
+                                                    child: const Text(
+                                                        'LEARN MORE'),
+                                                    onPressed: () async {
+                                                      Navigator.push(
+                                                          // ไปหน้าล็อกอิน
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                    Member(),
+                                                            settings:
+                                                                RouteSettings(
+                                                                    arguments:
+                                                                        null),
+                                                          ));
+                                                    },
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          )
+                                          //Text(_email), // แสดงอีเมล
+                                          /*           ElevatedButton(
                                         onPressed: () async {
                                           Navigator.push(
                                               // ไปหน้าล็อกอิน
@@ -409,8 +416,8 @@ class _HomeState extends State<Home> {
                                                     arguments: null),
                                               ));
                                         },
-                                        child: Text('GO TO MEMBER'),
-                                      ),
+                                        child: Text('GO TO MEMBER'), */
+                                          ),
                                     ],
                                   ),
                                 ),
