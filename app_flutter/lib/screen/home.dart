@@ -178,8 +178,8 @@ class _HomeState extends State<Home> {
                                 Visibility(
                                   visible: _loginSuccess,
                                   child: Container(
-                                    margin: EdgeInsets.all(20),
-                                    height: 200,
+                                    margin: EdgeInsets.all(10),
+                                    height: 150,
                                     width: double.infinity,
                                     decoration: BoxDecoration(
                                       gradient: LinearGradient(
@@ -204,7 +204,7 @@ class _HomeState extends State<Home> {
                                           ),
 
                                       borderRadius: BorderRadius.circular(
-                                          30), //border corner radius
+                                          25), //border corner radius
                                     ),
                                     child: Padding(
                                       padding: const EdgeInsets.only(top: 20),
@@ -240,7 +240,7 @@ class _HomeState extends State<Home> {
                                           const SizedBox(
                                             height: 20,
                                           ),
-                                          ElevatedButton(
+                                     /*      ElevatedButton(
                                             onPressed: () async {
                                               // เมื่อล็อกเอาท์
                                               // ทำการออกจากระบบ
@@ -250,7 +250,7 @@ class _HomeState extends State<Home> {
                                               });
                                             },
                                             child: Text('Logout'),
-                                          ),
+                                          ), */
                                         ],
                                       ),
                                     ),
@@ -347,10 +347,64 @@ class _HomeState extends State<Home> {
                                       _loginSuccess, // ใช้สถานะการล็อกอินกำหนดกรแสดง
 
                                   child: Column(
-                                    children: [
+                                    children: <Widget>[
                                       /*  FlutterLogo(
                                         size: 50,
                                       ), */
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              child: Image.asset(
+                                                'images/food1.jpg',
+                                                fit: BoxFit.cover,
+                                                height: 120,
+                                              ),
+                                            ),
+                                          ),
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            child: Image.asset(
+                                              'images/food2.jpg',
+                                              fit: BoxFit.cover,
+                                              height: 120,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              child: Image.asset(
+                                                'images/food1.jpg',
+                                                fit: BoxFit.cover,
+                                                height: 120,
+                                              ),
+                                            ),
+                                          ),
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            child: Image.asset(
+                                              'images/food2.jpg',
+                                              fit: BoxFit.cover,
+                                              height: 120,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                       Card(
                                           elevation: 4.0,
                                           child: Column(
