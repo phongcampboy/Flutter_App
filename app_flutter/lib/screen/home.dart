@@ -95,7 +95,7 @@ class _HomeState extends State<Home> {
                 Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(40),
+                      padding: const EdgeInsets.all(35),
                       child: Icon(Icons.menu, size: 20, color: Colors.white),
                     ),
                     Expanded(
