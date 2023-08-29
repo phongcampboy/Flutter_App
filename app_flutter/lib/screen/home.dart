@@ -30,7 +30,8 @@ class _HomeState extends State<Home> {
   String _firstname = '';
   String _lastname = '';
   late double screen;
-final Uri _url = Uri.parse('https://page.line.me/tmn.pattaya?openQrModal=true');
+  final Uri _url =
+      Uri.parse('https://page.line.me/tmn.pattaya?openQrModal=true');
   @override
   void initState() {
     super.initState();
@@ -62,11 +63,12 @@ final Uri _url = Uri.parse('https://page.line.me/tmn.pattaya?openQrModal=true');
     _firstname = _user!.firstName;
     _lastname = _user!.lastName;
   }
-Future<void> _launchUrl() async {
-  if (!await launchUrl(_url)) {
-    throw Exception('Could not launch $_url');
+
+  _launchUrl() async {
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
   }
-}
 
   @override
   Widget build(BuildContext context) {
@@ -342,7 +344,7 @@ Future<void> _launchUrl() async {
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: GestureDetector(
-                                                onTap: () {
+                                            onTap: () {
                                               Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
@@ -364,16 +366,15 @@ Future<void> _launchUrl() async {
                                           ),
                                         ),
                                         GestureDetector(
-                                              onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        Net(),
-                                                    settings: RouteSettings(
-                                                        arguments: null),
-                                                  ));
-                                            },
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) => Net(),
+                                                  settings: RouteSettings(
+                                                      arguments: null),
+                                                ));
+                                          },
                                           child: ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(8.0),
@@ -416,7 +417,7 @@ Future<void> _launchUrl() async {
                                         ),
                                         GestureDetector(
                                           onTap: () {
-                                            _launchUrl;
+                                            _launchUrl();
                                           },
                                           child: ClipRRect(
                                             borderRadius:
@@ -495,7 +496,5 @@ Future<void> _launchUrl() async {
         return const CircularProgressIndicator();
       },
     ));
-
-
   }
 }
