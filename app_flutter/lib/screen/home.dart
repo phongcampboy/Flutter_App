@@ -1,8 +1,11 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_new, unused_field, unused_local_variable, avoid_print, unused_import, prefer_final_fields, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace, dead_code, sort_child_properties_last
+// ignore_for_file: prefer_const_constructors, unnecessary_new, unused_field, unused_local_variable, avoid_print, unused_import, prefer_final_fields, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace, dead_code, sort_child_properties_last, unused_element, no_leading_underscores_for_local_identifiers, unnecessary_cast
 
 import 'package:app_flutter/models/user_model.dart';
+import 'package:app_flutter/screen/cabletv.dart';
+import 'package:app_flutter/screen/cctv.dart';
 import 'package:app_flutter/screen/getwidget.dart';
 import 'package:app_flutter/screen/member.dart';
+import 'package:app_flutter/screen/net.dart';
 import 'package:app_flutter/screen/sildemenu.dart';
 import 'package:app_flutter/screen/test.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +13,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import '../utils/user_provider.dart';
 import 'login.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -26,6 +30,7 @@ class _HomeState extends State<Home> {
   String _firstname = '';
   String _lastname = '';
   late double screen;
+final Uri _url = Uri.parse('https://page.line.me/tmn.pattaya?openQrModal=true');
   @override
   void initState() {
     super.initState();
@@ -57,6 +62,11 @@ class _HomeState extends State<Home> {
     _firstname = _user!.firstName;
     _lastname = _user!.lastName;
   }
+Future<void> _launchUrl() async {
+  if (!await launchUrl(_url)) {
+    throw Exception('Could not launch $_url');
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +105,7 @@ class _HomeState extends State<Home> {
                 Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(35),
+                      padding: const EdgeInsets.all(40),
                       child: Icon(Icons.menu, size: 20, color: Colors.white),
                     ),
                     Expanded(
@@ -136,18 +146,6 @@ class _HomeState extends State<Home> {
                 SizedBox(
                   height: 10,
                 ),
-                /*     Visibility(
-                  visible: _loginSuccess,
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 5),
-                    child: Center(
-                      child: Text(
-                        "Welcome $_firstname $_lastname",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                    ),
-                  ),
-                ), */
                 Visibility(
                   visible: !_loginSuccess,
                   child: Padding(
@@ -171,7 +169,7 @@ class _HomeState extends State<Home> {
                       child: SingleChildScrollView(
                         child: Center(
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 20),
+                            padding: const EdgeInsets.only(top: 10),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
@@ -179,7 +177,7 @@ class _HomeState extends State<Home> {
                                   visible: _loginSuccess,
                                   child: Container(
                                     margin: EdgeInsets.all(10),
-                                    height: 150,
+                                    height: 130,
                                     width: double.infinity,
                                     decoration: BoxDecoration(
                                       gradient: LinearGradient(
@@ -240,17 +238,6 @@ class _HomeState extends State<Home> {
                                           const SizedBox(
                                             height: 20,
                                           ),
-                                     /*      ElevatedButton(
-                                            onPressed: () async {
-                                              // เมื่อล็อกเอาท์
-                                              // ทำการออกจากระบบ
-                                              await userProvider.logout();
-                                              setState(() {
-                                                _loginSuccess = false;
-                                              });
-                                            },
-                                            child: Text('Logout'),
-                                          ), */
                                         ],
                                       ),
                                     ),
@@ -259,8 +246,8 @@ class _HomeState extends State<Home> {
                                 Visibility(
                                   visible: !_loginSuccess,
                                   child: Container(
-                                    margin: EdgeInsets.all(20),
-                                    height: 200,
+                                    margin: EdgeInsets.all(10),
+                                    height: 140,
                                     width: double.infinity,
                                     decoration: BoxDecoration(
                                       gradient: LinearGradient(
@@ -288,13 +275,13 @@ class _HomeState extends State<Home> {
                                           30), //border corner radius
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsets.only(top: 20),
+                                      padding: const EdgeInsets.only(top: 10),
                                       child: Column(
-                                        children: [
+                                        children: <Widget>[
                                           const Text(
                                             'Please login member',
                                             style: TextStyle(
-                                                fontSize: 30,
+                                                fontSize: 20,
                                                 fontWeight: FontWeight.w500,
                                                 color:
                                                     Colors.white), //Textstyle
@@ -306,7 +293,7 @@ class _HomeState extends State<Home> {
                                           Text(
                                             'กรุณาเข้าสูระบบสมาชิก',
                                             style: TextStyle(
-                                                fontSize: 20,
+                                                fontSize: 17,
                                                 color: Color.fromARGB(255, 7,
                                                     77, 135)), //Textstyle
                                           ),
@@ -335,145 +322,162 @@ class _HomeState extends State<Home> {
                                                   fetchUser();
                                                 }
                                               },
-                                              child: Text('Go to Login')),
+                                              child: Text('Login')),
                                         ],
                                       ),
                                     ),
                                   ),
                                 ),
-                                Visibility(
-                                  // ส่วนที่แสดงกรณีล็อกอินแล้ว
-                                  visible:
-                                      _loginSuccess, // ใช้สถานะการล็อกอินกำหนดกรแสดง
 
-                                  child: Column(
-                                    children: <Widget>[
-                                      /*  FlutterLogo(
+                                //แสดงเมนู ต่างๆ ด้านล่าง
+                                Column(
+                                  children: <Widget>[
+                                    /*  FlutterLogo(
                                         size: 50,
                                       ), */
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: GestureDetector(
+                                                onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        Cabletv(),
+                                                    settings: RouteSettings(
+                                                        arguments: null),
+                                                  ));
+                                            },
                                             child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(8.0),
-                                              child: Image.asset(
-                                                'images/food1.jpg',
+                                              child: Image.network(
+                                                'https://tmncabletv.com/app_flutter/img/cabletv.png',
                                                 fit: BoxFit.cover,
-                                                height: 120,
+                                                height: 140,
                                               ),
                                             ),
                                           ),
-                                          ClipRRect(
+                                        ),
+                                        GestureDetector(
+                                              onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        Net(),
+                                                    settings: RouteSettings(
+                                                        arguments: null),
+                                                  ));
+                                            },
+                                          child: ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(8.0),
-                                            child: Image.asset(
-                                              'images/food2.jpg',
+                                            child: Image.network(
+                                              'https://tmncabletv.com/app_flutter/img/net.jpg',
                                               fit: BoxFit.cover,
-                                              height: 120,
+                                              height: 140,
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        Cctv(),
+                                                    settings: RouteSettings(
+                                                        arguments: null),
+                                                  ));
+                                            },
                                             child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(8.0),
-                                              child: Image.asset(
-                                                'images/food1.jpg',
+                                              child: Image.network(
+                                                'https://tmncabletv.com/app_flutter/img/cctv.png',
                                                 fit: BoxFit.cover,
-                                                height: 120,
+                                                height: 140,
                                               ),
                                             ),
                                           ),
-                                          ClipRRect(
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            _launchUrl;
+                                          },
+                                          child: ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(8.0),
-                                            child: Image.asset(
-                                              'images/food2.jpg',
+                                            child: Image.network(
+                                              'https://tmncabletv.com/app_flutter/img/conn.jpg',
                                               fit: BoxFit.cover,
-                                              height: 120,
+                                              height: 140,
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                      Card(
-                                          elevation: 4.0,
-                                          child: Column(
-                                            children: [
-                                              ListTile(
-                                                title: Text('2300 per month'),
-                                                subtitle: Text(
-                                                    '2 bed, 1 bath, 1300 sqft'),
-                                                trailing: Icon(
-                                                    Icons.favorite_outline),
-                                              ),
-                                              Container(
-                                                height: 200.0,
-                                                child: Image.network(
-                                                    'https://tmncabletv.com/app_flutter/Net/net-tmn.png',
-                                                    fit: BoxFit.cover),
-                                                margin: EdgeInsets.all(5),
-                                              ),
-                                              Container(
-                                                padding: EdgeInsets.all(16.0),
-                                                alignment: Alignment.centerLeft,
-                                                child: Text(
-                                                    'Beautiful home to rent, recently refurbished with modern appliances...'),
-                                              ),
-                                              ButtonBar(
-                                                children: [
-                                                  /*   TextButton(
-                                                    child: const Text(
-                                                        'CONTACT AGENT'),
-                                                    onPressed: () {/* ... */},
-                                                  ), */
-                                                  TextButton(
-                                                    child: const Text(
-                                                        'LEARN MORE'),
-                                                    onPressed: () async {
-                                                      Navigator.push(
-                                                          // ไปหน้าล็อกอิน
-                                                          context,
-                                                          MaterialPageRoute(
-                                                            builder:
-                                                                (context) =>
-                                                                    Member(),
-                                                            settings:
-                                                                RouteSettings(
-                                                                    arguments:
-                                                                        null),
-                                                          ));
-                                                    },
-                                                  ),
-                                                ],
-                                              )
-                                            ],
-                                          )
-                                          //Text(_email), // แสดงอีเมล
-                                          /*           ElevatedButton(
-                                        onPressed: () async {
-                                          Navigator.push(
-                                              // ไปหน้าล็อกอิน
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) => Member(),
-                                                settings: RouteSettings(
-                                                    arguments: null),
-                                              ));
-                                        },
-                                        child: Text('GO TO MEMBER'), */
-                                          ),
-                                    ],
-                                  ),
+                                        ),
+                                      ],
+                                    ),
+                                    Card(
+                                        elevation: 4.0,
+                                        child: Column(
+                                          children: [
+                                            ListTile(
+                                              title: Text('2300 per month'),
+                                              subtitle: Text(
+                                                  '2 bed, 1 bath, 1300 sqft'),
+                                              trailing:
+                                                  Icon(Icons.favorite_outline),
+                                            ),
+                                            Container(
+                                              height: 200.0,
+                                              child: Image.network(
+                                                  'https://tmncabletv.com/app_flutter/Net/net-tmn.png',
+                                                  fit: BoxFit.cover),
+                                              margin: EdgeInsets.all(5),
+                                            ),
+                                            Container(
+                                              padding: EdgeInsets.all(16.0),
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                  'Beautiful home to rent, recently refurbished with modern appliances...'),
+                                            ),
+                                            ButtonBar(
+                                              children: [
+                                                TextButton(
+                                                  child:
+                                                      const Text('LEARN MORE'),
+                                                  onPressed: () async {
+                                                    Navigator.push(
+                                                        // ไปหน้าล็อกอิน
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              Member(),
+                                                          settings:
+                                                              RouteSettings(
+                                                                  arguments:
+                                                                      null),
+                                                        ));
+                                                  },
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        )),
+                                  ],
                                 ),
                               ],
                             ),
@@ -491,5 +495,7 @@ class _HomeState extends State<Home> {
         return const CircularProgressIndicator();
       },
     ));
+
+
   }
 }

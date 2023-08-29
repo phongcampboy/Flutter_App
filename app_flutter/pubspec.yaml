@@ -45,6 +45,7 @@ dependencies:
   google_fonts: ^4.0.3
   email_validator: '^2.1.16'
   qr_flutter: ^4.1.0
+
   
   
   
