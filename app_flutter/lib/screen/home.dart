@@ -341,30 +341,28 @@ class _HomeState extends State<Home> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        Cabletv(),
-                                                    settings: RouteSettings(
-                                                        arguments: null),
-                                                  ));
-                                            },
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                              child: Image.network(
-                                                'https://tmncabletv.com/app_flutter/img/cabletv.png',
-                                                fit: BoxFit.cover,
-                                                height: 140,
-                                              ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Cabletv(),
+                                                  settings: RouteSettings(
+                                                      arguments: null),
+                                                ));
+                                          },
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            child: Image.network(
+                                              'https://tmncabletv.com/app_flutter/img/cabletv.png',
+                                              fit: BoxFit.cover,
+                                              height: 140,
                                             ),
                                           ),
                                         ),
+                                        SizedBox(width: 10),
                                         GestureDetector(
                                           onTap: () {
                                             Navigator.push(
@@ -387,34 +385,33 @@ class _HomeState extends State<Home> {
                                         ),
                                       ],
                                     ),
+                                    SizedBox(height: 10),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        Cctv(),
-                                                    settings: RouteSettings(
-                                                        arguments: null),
-                                                  ));
-                                            },
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                              child: Image.network(
-                                                'https://tmncabletv.com/app_flutter/img/cctv.png',
-                                                fit: BoxFit.cover,
-                                                height: 140,
-                                              ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Cctv(),
+                                                  settings: RouteSettings(
+                                                      arguments: null),
+                                                ));
+                                          },
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            child: Image.network(
+                                              'https://tmncabletv.com/app_flutter/img/cctv.png',
+                                              fit: BoxFit.cover,
+                                              height: 140,
                                             ),
                                           ),
                                         ),
+                                        SizedBox(width: 10),
                                         GestureDetector(
                                           onTap: () {
                                             _launchUrl();
@@ -439,8 +436,8 @@ class _HomeState extends State<Home> {
                                               title: Text('2300 per month'),
                                               subtitle: Text(
                                                   '2 bed, 1 bath, 1300 sqft'),
-                                              trailing:
-                                                  Icon(Icons.favorite_outline),
+                                              trailing: Icon(
+                                                  Icons.favorite_outline),
                                             ),
                                             Container(
                                               height: 200.0,
@@ -458,15 +455,16 @@ class _HomeState extends State<Home> {
                                             ButtonBar(
                                               children: [
                                                 TextButton(
-                                                  child:
-                                                      const Text('LEARN MORE'),
+                                                  child: const Text(
+                                                      'LEARN MORE'),
                                                   onPressed: () async {
                                                     Navigator.push(
                                                         // ไปหน้าล็อกอิน
                                                         context,
                                                         MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              Member(),
+                                                          builder:
+                                                              (context) =>
+                                                                  Member(),
                                                           settings:
                                                               RouteSettings(
                                                                   arguments:
