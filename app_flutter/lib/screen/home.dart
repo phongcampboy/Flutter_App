@@ -107,7 +107,7 @@ class _HomeState extends State<Home> {
                 Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(40),
+                      padding: const EdgeInsets.all(30),
                       child: Icon(Icons.menu, size: 20, color: Colors.white),
                     ),
                     Expanded(
@@ -178,7 +178,7 @@ class _HomeState extends State<Home> {
                                 Visibility(
                                   visible: _loginSuccess,
                                   child: Container(
-                                    margin: EdgeInsets.all(10),
+                                    margin: EdgeInsets.all(8),
                                     height: 130,
                                     width: double.infinity,
                                     decoration: BoxDecoration(
@@ -207,7 +207,7 @@ class _HomeState extends State<Home> {
                                           25), //border corner radius
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsets.only(top: 20),
+                                      padding: const EdgeInsets.only(top: 10),
                                       child: Column(
                                         children: [
                                           const Text(
@@ -248,7 +248,7 @@ class _HomeState extends State<Home> {
                                 Visibility(
                                   visible: !_loginSuccess,
                                   child: Container(
-                                    margin: EdgeInsets.all(10),
+                                    margin: EdgeInsets.all(8),
                                     height: 140,
                                     width: double.infinity,
                                     decoration: BoxDecoration(
