@@ -84,7 +84,7 @@ class _MemberState extends State<Member> {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: Color(0xffDDDDDD),
+                    color: Color.fromARGB(255, 237, 236, 236),
                     blurRadius: 6.0,
                     spreadRadius: 1.0,
                     offset: Offset(0.0, 0.0),
@@ -151,6 +151,21 @@ class _MemberState extends State<Member> {
                 ),
               ),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Image.asset('images/food1.jpg', width: 180),
+                Image.asset('images/food4.jpg', width: 180),
+              ],
+            ),
+            SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Image.asset('images/food1.jpg', width: 180),
+                Image.asset('images/food4.jpg', width: 180),
+              ],
+            ),
             ElevatedButton(
                 onPressed: () async {
                   // กำหดให้รอค่า หลังจากเปิดไปหน้า lgoin
@@ -170,12 +185,12 @@ class _MemberState extends State<Member> {
                 child: Text('Go Add Member')),
             ElevatedButton(
                 onPressed: () {
-                   Navigator.push(
+                  Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => LoadMember(),
                         settings: RouteSettings(arguments: null),
-                      )); 
+                      ));
                 },
                 child: Text('Go Data Member'))
           ],

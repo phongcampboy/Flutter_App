@@ -135,6 +135,18 @@ class _LoadMemberState extends State<LoadMember> {
                                               fontWeight: FontWeight.bold,
                                               fontSize: 18)),
                                       Text(snashot.data![index].memberId),
+                                      
+                                    ],
+                                  ),
+                                      Row(
+                                    children: [
+                                      Text("ชื่อ  : ",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18)),
+                                      Text(snashot.data![index].firstName),
+                                      Text("    "),
+                                      Text(snashot.data![index].lastName),
                                     ],
                                   ),
                                   Row(
