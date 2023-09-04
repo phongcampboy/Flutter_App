@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, prefer_const_constructors, unused_field, avoid_print, prefer_typing_uninitialized_variables, non_constant_identifier_names, prefer_final_fields, no_leading_underscores_for_local_identifiers
 
 import 'package:app_flutter/screen/add_member.dart';
+import 'package:app_flutter/screen/listpay.dart';
 import 'package:app_flutter/screen/paybill.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -143,7 +144,15 @@ class _MemberState extends State<Member> {
                         const SizedBox(width: 8),
                         TextButton(
                           child: const Text('ประวัติการชำระ'),
-                          onPressed: () {/* ... */},
+                          onPressed: () {
+                            Navigator.push(
+                                // ไปหน้าล็อกอิน
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ListPay(),
+                                  settings: RouteSettings(arguments: null),
+                                ));
+                          },
                         ),
                       ],
                     ),

@@ -132,7 +132,7 @@ class _ListPayState extends State<ListPay> {
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 18)),
-                                      Text(snashot.data![index].total),
+                                      Text(snashot.data![index].lastPay),
                                     ],
                                   ),
                                 ],

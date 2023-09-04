@@ -466,7 +466,7 @@ class _HomeState extends State<Home> {
                                                         MaterialPageRoute(
                                                           builder:
                                                               (context) =>
-                                                                  ListPay(),
+                                                                  Member(),
                                                           settings:
                                                               RouteSettings(
                                                                   arguments:
