@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_new, unused_field, unused_local_variable, avoid_print, unused_import, prefer_final_fields, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace, dead_code, sort_child_properties_last, unused_element, no_leading_underscores_for_local_identifiers, unnecessary_cast
 
+import 'package:app_flutter/models/listpay.dart';
 import 'package:app_flutter/models/user_model.dart';
 import 'package:app_flutter/screen/cabletv.dart';
 import 'package:app_flutter/screen/cctv.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import '../utils/user_provider.dart';
+import 'listpay.dart';
 import 'login.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -464,7 +466,7 @@ class _HomeState extends State<Home> {
                                                         MaterialPageRoute(
                                                           builder:
                                                               (context) =>
-                                                                  Member(),
+                                                                  ListPay(),
                                                           settings:
                                                               RouteSettings(
                                                                   arguments:
