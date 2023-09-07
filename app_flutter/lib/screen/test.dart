@@ -26,9 +26,9 @@ class _TestState extends State<Test> {
     screen = MediaQuery.of(context).size.width;
     // สำหรับทดสอบ
     return Scaffold(
-      appBar: AppBar(
+    /*   appBar: AppBar(
         title: Text('Home'),
-      ),
+      ), */
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: GridView.count(
